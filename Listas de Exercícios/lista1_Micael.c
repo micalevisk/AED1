@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include "funcAuxiliares.h"
 #include <string.h>
 #include <math.h>
 #define N 4
-
 
 // 1
 int fatorialDe(int n){
@@ -20,13 +20,13 @@ int fatorialDe(int n){
 // 2
 void modificarVetor(int v[], int n){
   int i=0;
-  
-  for( ; i < n; i++){
-    if(v[i]<=0) v[i] = -2;                     // a)
-    
-    else if(v[i] >= 1 && v[i] <= 5) v[i] = -1; // b)
 
-    else v[i] = 0;                             // c)
+  for( ; i < n; i++){
+    if(v[i]<=0) v[i] = -2;                     // a
+
+    else if(v[i] >= 1 && v[i] <= 5) v[i] = -1; // b
+
+    else v[i] = 0;                             // c
   }
 }
 
@@ -50,26 +50,28 @@ int textoVerdadeiro(char texto[]){
   char palavra[4] = "FAM";
 
   for(; texto[i] != '\0' ; i++){
+
     if(texto[i] == 'U'){
       j=0;
       while( texto[i+1] == palavra[j] ){
-        if(j==2) return 1;
-        j++;
-        i++;
+	if(j==2) return 1;
+	j++;
+	i++;
       }
     }
+
   }
-  return 0; 
+  return 0; // falso
 }
 
 
 // 5
 int estaEmOrdemCrescente(int v[], int n){
   int i=0;
-  
+
   if( n > 1 ){
     while( v[i] <= v[i+1] ){
-      if(i == n-2) // se for o pen√∫ltimo elemento
+      if(i == n-2) // se for o pen˙ltimo elemento
 	return 1;
       i++;
     }
@@ -79,7 +81,7 @@ int estaEmOrdemCrescente(int v[], int n){
 }
 
 
-// 6
+//6
 void insertionSort(int v[], int n){
   int i = 1, j;
   int pivot;
@@ -103,7 +105,7 @@ int somaDosQuadradosDe(int inteiroN){
   int acumulador=0;
 
   while(inteiroN > 0){
-    acumulador += inteiroN * inteiroN ;
+    acumulador += inteiroN * inteiroN;
     inteiroN--;
   }
   return acumulador;
@@ -112,16 +114,14 @@ int somaDosQuadradosDe(int inteiroN){
 
 // 8
 int letraNoNome(char nome[], char letra){
-  int n = strlen(nome), i;
+  int i;
   int vezesQueAparece = 0;
   char letraMinuscula = letra;
 
-  // se for uma letra ma√≠uscula, torna ela min√∫scula (soma com 32)
-  if((letra > 64) && (letra < 91)) letraMinuscula += 32;
-    
+  if((letra > 64) && (letra < 91)) letraMinuscula += 32; // se for uma letra maÌuscula, torna ela min˙scula (ao somar com 32)
   char letraMaiuscula = letraMinuscula-32;
 
-  for(i=0; i < n; i++){
+  for(i=0; nome[i] != '\0'; i++){
     if( nome[i] == letraMinuscula || nome[i] == letraMaiuscula )
       vezesQueAparece++;
   }
@@ -133,10 +133,10 @@ int letraNoNome(char nome[], char letra){
 // 9
 int palindromo(char nome[]){
   int tamanho = strlen(nome);
-  int i=0,    j=tamanho-1;
+  int i=0, j=tamanho-1;
 
   for(; i < j; i++, j--){
-    if(nome[i] != nome[j]) // se n√£o for pal√≠ndromo
+    if(nome[i] != nome[j]) // se n„o for palÌndromo
       return 0;
   }
 
@@ -158,12 +158,12 @@ int verSeRepete_binarySearch(int x, int v[], int n){
       fim = meio - 1;
     else{
       return ((v[meio+1] != x) && (v[meio-1] != x));
-      // se for true = a chave n√£o se repete (considerando um vetor ordenado crescente/decrescente).
-      // o pr√≥ximo/anterior elemento dever√° ser diferente de x caso este n√£o se repita.
+      // se for true = a chave n„o se repete (considerando um vetor ordenado crescente/decrescente).
+      // onde o prÛximo/anterior elemento dever· ser diferente de x caso este n„o se repita.
     }
   }
 
-  return 0; // 'falso' caso a chave n√£o exista no vetor.
+  return 0; // 'falso' caso a chave n„o exista no vetor.
 }
 
 
@@ -202,18 +202,16 @@ void inverterSubstituicoes(int v[], int n){
 // 15
 int matrizQuadrada(int matriz[][N], int K){
   int i, j;
-  int acumulador=0;
+  int vezesQueAparece=0;
 
   for(i=0; i < N ; i++){
     for(j=0; j < N; j++){
-      if(matriz[i][j] == K)
-	acumulador++;
-      if (acumulador > 4)
-	return 0;
+      if(matriz[i][j] == K) vezesQueAparece++;
+      if (vezesQueAparece > 4) return 0;
     }
   }
 
-  return acumulador == 4; // se for exatamente 4, retorna 1 (true)
+  return (vezesQueAparece == 4); // se for exatamente 4, retorna 1 (true)
 }
 
 
@@ -247,28 +245,28 @@ int somaDiagonalSecundaria(int matriz[][N]){
 
 // 18
 float desvioPadraoDe(int v[], int n[]){
-/*
-1 - obter m√©dia geral
-2 - subtrair cada elemento da m√©dia geral, elevar ao quadrado e som√°-los
-3 - vari√¢ncia = dividir resultado anterior pelo n√∫mero de elementos
-4 - desvio padr√£o = raiz quadrada da vari√¢ncia.
-*/
+  /*
+    1 - obter mÈdia geral
+    2 - subtrair cada elemento da mÈdia geral, elevar ao quadrado e som·-los
+    3 - vari‚ncia = dividir resultado anterior pelo n˙mero de elementos
+    4 - desvio padr„o = raiz quadrada da vari‚ncia.
+  */
 
   int i;
   int somaDosQuadradosDasDifrencas=0;
   float mediaGeral, variancia;
-  int *p = &n; // n√∫mero de elementos.
+  int nElementos = n; // n˙mero de elementos.
 
-  // definindo m√©dia geral.
+  // definindo mÈdia geral.
   for(i=0; i<n; i++)
-    mediaGeral += (float)v[i] * (1 / (float)*p);
+    mediaGeral += (float)v[i] * (1 / (float)nElementos);
 
   // subtraindo cada elemento da mediaGeral, elevando ao quadrado e somando tudo.
   for(i=0; i<n; i++)
     somaDosQuadradosDasDifrencas += pow((v[i] - mediaGeral), 2) ;
 
-  // m√©dia dos quadrados das diferen√ßas.
-  variancia = somaDosQuadradosDasDifrencas / *p;
+  // mÈdia dos quadrados das diferenÁas.
+  variancia = somaDosQuadradosDasDifrencas / nElementos;
 
   return sqrt(variancia);
 }
