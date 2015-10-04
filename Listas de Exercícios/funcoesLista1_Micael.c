@@ -71,7 +71,7 @@ int estaEmOrdemCrescente(int v[], int n){
 
   if( n > 1 ){
     while( v[i] <= v[i+1] ){
-      if(i == n-2) // se for o penúltimo elemento
+      if(i == n-2) // se for o penÃºltimo elemento
 	return 1;
       i++;
     }
@@ -118,7 +118,7 @@ int letraNoNome(char nome[], char letra){
   int vezesQueAparece = 0;
   char letraMinuscula = letra;
 
-  if((letra > 64) && (letra < 91)) letraMinuscula += 32; // se for uma letra maíuscula, torna ela minúscula (ao somar com 32)
+  if((letra > 64) && (letra < 91)) letraMinuscula += 32; // se for uma letra maÃ­uscula, torna ela minÃºscula (ao somar com 32)
   char letraMaiuscula = letraMinuscula-32;
 
   for(i=0; nome[i] != '\0'; i++){
@@ -136,7 +136,7 @@ int palindromo(char nome[]){
   int i=0, j=tamanho-1;
 
   for(; i < j; i++, j--){
-    if(nome[i] != nome[j]) // se não for palíndromo
+    if(nome[i] != nome[j]) // se nÃ£o for palÃ­ndromo
       return 0;
   }
 
@@ -158,12 +158,12 @@ int verSeRepete_binarySearch(int x, int v[], int n){
       fim = meio - 1;
     else{
       return ((v[meio+1] != x) && (v[meio-1] != x));
-      // se for true = a chave não se repete (considerando um vetor ordenado crescente/decrescente).
-      // onde o próximo/anterior elemento deverá ser diferente de x caso este não se repita.
+      // se for true = a chave nÃ£o se repete (considerando um vetor ordenado crescente/decrescente).
+      // onde o prÃ³ximo/anterior elemento deverÃ¡ ser diferente de x caso este nÃ£o se repita.
     }
   }
 
-  return 0; // 'falso' caso a chave não exista no vetor.
+  return 0; // 'falso' caso a chave nÃ£o exista no vetor.
 }
 
 
@@ -246,18 +246,18 @@ int somaDiagonalSecundaria(int matriz[][N]){
 // 18
 float desvioPadraoDe(int v[], int n[]){
   /*
-    1 - obter média geral
-    2 - subtrair cada elemento da média geral, elevar ao quadrado e somá-los
-    3 - variância = dividir resultado anterior pelo número de elementos
-    4 - desvio padrão = raiz quadrada da variância.
+    1 - obter mÃ©dia geral
+    2 - subtrair cada elemento da mÃ©dia geral, elevar ao quadrado e somÃ¡-los
+    3 - variÃ¢ncia = dividir resultado anterior pelo nÃºmero de elementos
+    4 - desvio padrÃ£o = raiz quadrada da variÃ¢ncia.
   */
 
   int i;
   int somaDosQuadradosDasDifrencas=0;
   float mediaGeral, variancia;
-  int nElementos = n; // número de elementos.
+  int nElementos = n; // nÃºmero de elementos.
 
-  // definindo média geral.
+  // definindo mÃ©dia geral.
   for(i=0; i<n; i++)
     mediaGeral += (float)v[i] * (1 / (float)nElementos);
 
@@ -265,7 +265,7 @@ float desvioPadraoDe(int v[], int n[]){
   for(i=0; i<n; i++)
     somaDosQuadradosDasDifrencas += pow((v[i] - mediaGeral), 2) ;
 
-  // média dos quadrados das diferenças.
+  // mÃ©dia dos quadrados das diferenÃ§as.
   variancia = somaDosQuadradosDasDifrencas / nElementos;
 
   return sqrt(variancia);
