@@ -175,15 +175,7 @@ void substituirElementos(int v[], int n, int delta){
 }
 
 
-// 12
-void substituirElementos2(int v[], int n){
-  int i=1;
-  for(; i<n; i++ )
-    v[i] -= v[i-1];
-}
-
-
-//13
+//12
 void inverterSubstituicoes(int v[], int n){
   int i, aux, aux2;
 
@@ -191,11 +183,19 @@ void inverterSubstituicoes(int v[], int n){
     aux = v[0];
 
     for(i=1; i<n; i++){
-      aux2 = v[i] + aux;
+      aux2 = v[i] - aux;
       aux  = v[i];
       v[i] = aux2;
     }
   }
+}
+
+
+// 13
+void substituirElementos2(int v[], int n){
+  int i=1;
+  for(; i<n; i++ )
+    v[i] += v[i-1];
 }
 
 
