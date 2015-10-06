@@ -176,7 +176,7 @@ void substituirElementos(int v[], int n, int delta){
 
 
 //12
-void inverterSubstituicoes(int v[], int n){
+void substituirElementos2(int v[], int n){
   int i, aux, aux2;
 
   if(n>1){
@@ -192,7 +192,7 @@ void inverterSubstituicoes(int v[], int n){
 
 
 // 13
-void substituirElementos2(int v[], int n){
+void inverterSubstituicoes(int v[], int n){
   int i=1;
   for(; i<n; i++ )
     v[i] += v[i-1];
