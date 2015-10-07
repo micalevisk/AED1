@@ -1,3 +1,7 @@
+// ALUNO    : Micael Levi L. C.
+// MATRÍCULA: 21554923
+// TURMA    : CB01
+
 #include <stdio.h>
 #include "funcAuxiliares.h"
 #include <string.h>
