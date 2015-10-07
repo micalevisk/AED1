@@ -203,6 +203,27 @@ void inverterSubstituicoes(int v[], int n){
 }
 
 
+/* 14 -
+a) R: 40, 12, 3
+b) R: 40, 90, 50, 55
+
+/// Resolução:
+/// { 3, 12, 20, 25, 40, 50, 55, 90, 95, 99 } | n = 10
+/// a) Buscando a Chave '4'
+/// inicio = 0 | fim = 9 | meio := (0+9)/2 = 4 ---> v[4] = 40 > chave : fim    = meio - 1
+/// inicio = 0 | fim = 3 | meio := (0+3)/2 = 1 ---> v[1] = 12 > chave : fim    = meio - 1
+/// inicio = 0 | fim = 0 | meio := (0+0)/2 = 0 ---> v[0] = 3  < chave : inicio = meio + 1
+/// inicio > fim --> retorna -1
+
+/// b) Buscando a Chave '55'
+/// inicio = 0 | fim = 9 | meio := (0+9)/2 = 4 ---> v[4] = 40 < chave : inicio = meio + 1
+/// inicio = 5 | fim = 9 | meio := (5+9)/2 = 7 ---> v[7] = 90 > chave : fim    = meio - 1
+/// inicio = 5 | fim = 6 | meio := (5+6)/2 = 5 ---> v[5] = 50 < chave : inicio = meio + 1
+/// inicio = 6 | fim = 6 | meio := (6+6)/2 = 6 ---> v[6] = 55 == chave: retorna meio
+/// --> retorna 6
+*/
+
+
 // 15
 int matrizQuadrada(int matriz[][N], int K){
   int i, j;
@@ -273,4 +294,3 @@ float desvioPadraoDe(int v[], int n[]){
 	
   return sqrt(variancia); // desvio padrao
 }
-
