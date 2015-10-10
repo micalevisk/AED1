@@ -121,7 +121,7 @@ int letraNoNome(char nome[], char letra){
   int vezesQueAparece = 0;
   char letraMinuscula, letraMaiuscula;
 	
-  if((letra > 64) && (letra < 91)) letraMinuscula = letra + 32; // se for uma letra maíuscula, torna ela minúscula (ao somar com 32)
+  if((letra > 64) && (letra < 91)) letraMinuscula = letra + 32; // se for uma letra maiuscula, torna ela minuscula (ao somar com 32)
   letraMinuscula = letraMinuscula-32;
 	
   for(i=0; nome[i] != '\0'; i++){
@@ -134,17 +134,17 @@ int letraNoNome(char nome[], char letra){
 
 
 // 9
-int palindromo(char nome[]){
+int verSeEhPalindromo(char nome[]){
   int tamanho = strlen(nome);
   int i=0, j=tamanho-1;
 
   for(; i < j; i++, j--){
-    if(nome[i] != nome[j]) // se não for palíndromo
+    if(nome[i] != nome[j]) // se nao for palindromo
       return 0;
   }
 
-  return tamanho; // se tiver apenas o caracter nulo, tamanho == 0 -> falso
-  // senão, tamanho != 0 -> verdadeiro
+  return tamanho; // se tiver apenas o caracter nulo, tamanho == 0 -> retorna falso
+  // senao, tamanho != 0 -> retorna verdadeiro
 }
 
 
@@ -162,12 +162,12 @@ int verSeRepete_binarySearch(int x, int v[], int n){
       fim = meio - 1;
     else{
       return ((v[meio+1] != x) && (v[meio-1] != x));
-      // se for true -> a chave não se repete (considerando um vetor ordenado crescente/decrescente).
-      // onde o próximo/anterior elemento deverá ser diferente de x caso este não se repita.
+      // se for true -> a chave nao se repete (considerando um vetor ordenado crescente/decrescente).
+      // onde o proximo/anterior elemento devera ser diferente de x caso este nao se repita.
     }
   }
 
-  return 0; // 'falso' caso a chave não exista no vetor.
+  return 0; // 'falso' caso a chave nao exista no vetor.
 }
 
 
@@ -203,7 +203,8 @@ void inverterSubstituicoes(int v[], int n){
 }
 
 
-/* 14 -
+// 14 -
+/*
 a) R: 40, 12, 3
 b) R: 40, 90, 50, 55
 
@@ -232,21 +233,21 @@ int matrizQuadrada(int matriz[][N], int K){
   for(i=0; i < N ; i++){
     for(j=0; j < N; j++){
       if(matriz[i][j] == K) vezesQueAparece++;
-      if (vezesQueAparece > 4) return 0; // como é maior que 4 vezes, retorna 0 (=false)
+      if (vezesQueAparece > 4) return 0; // como é maior que 4 vezes, retorna 0 (=falso)
     }
   }
 
-  return (vezesQueAparece == 4); // se for exatamente 4, retorna 1 (=true)
+  return (vezesQueAparece == 4); // se for exatamente 4, retorna 1 (=verdadeiro)
 }
 
 
 // 16
 int maiorElementoDaMatrizQuadrada(int matriz[][N]){
-  int i=0, j;
+  int i=1, j;
   int maior = matriz[0][0];
 	
   for(; i < N; i++){
-    for(j=0; j < N; j++){
+    for(j=1; j < N; j++){
       if(matriz[i][j] > maior)
 	maior = matriz[i][j];
     }
@@ -257,11 +258,11 @@ int maiorElementoDaMatrizQuadrada(int matriz[][N]){
 
 // 17
 int somaDiagonalSecundaria(int matriz[][N]){
-  int i, j;
+  int i;
   int soma = 0;
 	
-  for(i=0,j=N-1; i < N; i++, j--)
-    soma += matriz[i][j];
+  for(i=0; i < N; i++)
+    soma += matriz[i][N - (i+1)];
 	
   return soma;
 }
@@ -269,16 +270,16 @@ int somaDiagonalSecundaria(int matriz[][N]){
 
 // 18
 float desvioPadraoDe(int v[], int n[]){
-  /*
-    1 - obter media geral
-    2 - subtrair cada elemento da media geral, elevar ao quadrado e soma-los
-    3 - variancia = dividir resultado anterior pelo numero de elementos
-    4 - desvio padrao = raiz quadrada da variancia.
-  */
+/*
+1 - obter media geral
+2 - subtrair cada elemento da media geral, elevar ao quadrado e soma-los
+3 - variancia = dividir resultado anterior pelo numero de elementos
+4 - desvio padrao = raiz quadrada da variancia.
+*/
 
   int i;
   int somaDosQuadradosDasDifrencas=0;
-  float mediaGeral, variancia;
+  float mediaGeral, variancia=0;
   int nElementos = n; // numero de elementos.
 	
   // definindo media geral.
@@ -292,5 +293,5 @@ float desvioPadraoDe(int v[], int n[]){
   // media dos quadrados das diferencas.
   variancia = somaDosQuadradosDasDifrencas / nElementos;
 	
-  return sqrt(variancia); // desvio padrao
+  return sqrt(variancia);
 }
