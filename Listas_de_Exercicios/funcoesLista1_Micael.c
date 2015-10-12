@@ -58,8 +58,8 @@ int textoVerdadeiro(char texto[]){
       j=0;
       while( texto[i+1] == palavra[j] ){
 	j++;
-	i++;
 	if(j==2) return 1; // verdadeiro
+	i++;
       }
     }
   }
