@@ -269,29 +269,28 @@ int somaDiagonalSecundaria(int matriz[N][N]){
 
 
 // 18
-float desvioPadraoDe(int v[], int n[]){
+float desvioPadraoDe(int v[], int n){
 /*
 1 - obter media geral
 2 - subtrair cada elemento da media geral, elevar ao quadrado e soma-los
-3 - variancia = dividir resultado anterior pelo numero de elementos
+3 - variancia = dividir resultado anterior pelo numero de elementos - 1
 4 - desvio padrao = raiz quadrada da variancia.
 */
 
   int i;
-  int somaDosQuadradosDasDifrencas=0;
+  float somaDosQuadradosDasDifrencas=0;
   float mediaGeral, variancia=0;
-  int nElementos = n; // numero de elementos.
 	
   // definindo media geral.
   for(i=0; i<n; i++)
-    mediaGeral += (float)v[i] * (1 / (float)nElementos);
-	
+    mediaGeral += v[i];
+  mediaGeral /= n;
+  
   // subtraindo cada elemento pela mediaGeral, elevando ao quadrado e somando tudo.
   for(i=0; i<n; i++)
-    somaDosQuadradosDasDifrencas += pow((v[i] - mediaGeral), 2) ;
+    somaDosQuadradosDasDifrencas += pow(v[i] - mediaGeral, 2) ;
 	
-  // media dos quadrados das diferencas.
-  variancia = somaDosQuadradosDasDifrencas / nElementos;
+  variancia = somaDosQuadradosDasDifrencas / (n-1);
 	
   return sqrt(variancia);
 }
