@@ -57,9 +57,9 @@ int textoVerdadeiro(char texto[]){
     if(texto[i] == 'U'){
       j=0;
       while( texto[i+1] == palavra[j] ){
-	if(j==2) return 1; // verdadeiro
 	j++;
 	i++;
+	if(j==2) return 1; // verdadeiro
       }
     }
   }
@@ -242,7 +242,7 @@ int matrizQuadrada(int matriz[][N], int K){
 
 
 // 16
-int maiorElementoDaMatrizQuadrada(int matriz[][N]){
+int maiorElementoDaMatrizQuadrada(int matriz[N][N]){
   int i=1, j;
   int maior = matriz[0][0];
 	
@@ -257,7 +257,7 @@ int maiorElementoDaMatrizQuadrada(int matriz[][N]){
 
 
 // 17
-int somaDiagonalSecundaria(int matriz[][N]){
+int somaDiagonalSecundaria(int matriz[N][N]){
   int i;
   int soma = 0;
 	
