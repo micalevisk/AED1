@@ -50,21 +50,18 @@ void inverterPosicoesVetor(int v[], int n){
 
 // 4
 int textoVerdadeiro(char texto[]){
-  int i=0, j;
-  char palavra[4] = "FAM";
+    int i=0;
 
-  for(; texto[i] != '\0' ; i++){
-    if(texto[i] == 'U'){
-      j=0;
-      while( texto[i+1] == palavra[j] ){
-	j++;
-	if(j==2) return 1; // verdadeiro
-	i++;
-      }
+    for(; i < strlen(texto) - 3; i++){
+
+        if(texto[i] == 'U'){
+          if( (texto[i+1] == 'F') && (texto[i+2] == 'A') && (texto[i+3] == 'M') )
+            return 1;
+
+          i = i + 4;
+        }
     }
-  }
-  
-  return 0; // falso
+    return 0; // falso
 }
 
 
