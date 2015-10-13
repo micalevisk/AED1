@@ -3,7 +3,6 @@
 // TURMA    : CB01
 
 #include <stdio.h>
-#include "funcAuxiliares.h"
 #include <string.h>
 #include <math.h>
 #define N 4
