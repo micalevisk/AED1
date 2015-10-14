@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-
-// ORDENAÇÃO POR SELEÇÃO: O(n²)
+// ORDENAÃ‡ÃƒO POR SELEÃ‡ÃƒO: O(nÂ²)
 void selectionSort(int v[], int n){
   int i=0,j, aux;
   int posMenor;
@@ -36,7 +35,7 @@ int linearSearch(int v[], int n, int chave){
 
 
 
-// BUSCA BINÁRIA: O(log2 n)
+// BUSCA BINÃRIA: O(log2 n)
 int binarySearch(int v[], int n, int chave){
   int inicio = 0, fim = n - 1;
   int meio, i;
@@ -58,7 +57,7 @@ int binarySearch(int v[], int n, int chave){
 
 
 
-// ORDENAÇÃO POR INSERÇÃO: O(n²)
+// ORDENAÃ‡ÃƒO POR INSERÃ‡ÃƒO: O(nÂ²)
 void insertionSort(int v[], int n){
   int i=1, j, pivot;
 
@@ -74,30 +73,4 @@ void insertionSort(int v[], int n){
 }
 
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+/* written with GNU Emacs */
