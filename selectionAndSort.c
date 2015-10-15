@@ -38,7 +38,7 @@ int linearSearch(int v[], int n, int chave){
 // BUSCA BINÁRIA: O(log2 n)
 int binarySearch(int v[], int n, int chave){
   int inicio = 0, fim = n - 1;
-  int meio, i;
+  int meio;
   
   while(inicio <= fim){
     meio = (inicio+fim)/2;
