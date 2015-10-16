@@ -273,3 +273,40 @@ float desvioPadraoDe(int v[], int n){
     
     return sqrt(variancia);
 }
+
+
+//EXTRA:
+// quantas vezes a chave se repete no vetor ordenado (busca binaria):
+int vezesQueRepete(int chave, int v[], int n){
+	int inicio = 0, fim = n-1;
+	int meio, i, vezes = 0;
+
+	while( inicio <= fim ){
+		meio = (inicio+fim)/2;
+
+		if(v[meio] < chave) inicio = meio+1;
+		else if(v[meio] > chave) fim = meio-1;
+		else{
+			i = meio + 1;
+			if(v[i] == chave){
+				while((v[i] == chave) && (meio <= fim)){
+					vezes++;
+					i++;
+				}
+			}
+
+			i = meio-1;
+			if(v[i] == chave){
+				while((v[i] == chave) && (i >= inicio)){
+					vezes++;
+					i--;
+				}
+			}
+
+
+			return vezes+1;				
+		}
+	}
+
+	return vezes;
+}
