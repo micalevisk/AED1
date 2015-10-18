@@ -1,12 +1,12 @@
 // ALUNO    : Micael Levi L. C.
 // MATRÍCULA: 21554923
 // TURMA    : CB01
+/* Correção: Mikael Souza 18/10/15 */
 
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #define N 4
-
 
 // 1
 int fatorialDe(int n){
@@ -75,7 +75,7 @@ int verSeEstaEmOrdemCrescente(int v[], int n){
     }
   }
     
-  return 0;
+  return (n==1); // se o tamanho for 1, então o vetor está ordenado.
 }
 
 
@@ -114,10 +114,10 @@ int somarOsQuadradosAnterioresDe(int inteiroN){
 int letraNoNome(char nome[], char letra){
   int i;
   int vezesQueAparece = 0;
-  char letraMinuscula, letraMaiuscula;
+  char letraMinuscula=letra, letraMaiuscula;
     
-  if((letra > 64) && (letra < 91)) letraMinuscula = letra + 32;
-  letraMinuscula = letraMinuscula-32;
+  if((letra > 64) && (letra < 91)) letraMinuscula += 32;
+  letraMaiuscula = letraMinuscula-32;
     
   for(i=0; nome[i] != '\0'; i++){
     if( nome[i] == letraMinuscula || nome[i] == letraMaiuscula )
