@@ -308,7 +308,6 @@ int vezesQueRepete(int chave, int v[], int n){
       return vezes+1;				
     }
   }
-
   return vezes;
 }
 
@@ -318,7 +317,6 @@ int vezesQueRepete(int chave, int v[], int n){
 // Considere que o vetor e o numero de porcos sera
 // passado como parametro. Os porcos com altura 0
 // devem ser descartados no calculo.
-
 typedef struct{
   int idade;
   int peso;
@@ -326,7 +324,6 @@ typedef struct{
 } tipoPorco;
 
 float mediaDasAlturas(tipoPorco v[], int nPorcos){
-
   float soma = 0;
   int i;
   
@@ -334,4 +331,86 @@ float mediaDasAlturas(tipoPorco v[], int nPorcos){
     if(v[i].altura != 0.0) soma += v[i].altura;
   
   return soma / nPorcos;
+}
+
+
+// Escreva uma função que faça uma busca binária em um vetor de ponteiros 
+// para o tipo Funcionario, cujos elementos estão em ordem alfabética dos
+// nomes dos funcionários. Essa função deve receber como parâmetros o 
+// número de funcionários, o vetor e o nome do funcionário que se deseja 
+// buscar, e deve ter como valor de retorno um ponteiro para o registro do 
+// funcionário procurado. Se não houver um funcionário com o nome procurado, 
+// a função deve retornar NULL.
+typedef struct {
+  char nome[81]; 		/* nome do funcionário */
+  float valor_hora;	/* valode da hora de trabalho em Reais */
+  int hora_mes;		/* horas trabalhadas em um mês */
+} Funcionario;
+
+Funcionario* buscarFuncionario(int n, Funcionario* v[], char nome[]){
+  int inicio = 0, fim = n-1;
+  int meio;
+
+  while(inicio <= fim){
+    meio = (inicio+fim)/2;
+
+    switch(strcmp(nome, v[meio]->nome)){
+    case -1: // nome vem antes
+      fim = meio - 1;
+      break;
+    case 1:	// nome vem depois
+      inicio = meio + 1;
+      break;
+    case 0:
+      return v[meio];
+    }
+  }
+  return NULL;
+}
+
+
+// Escreva uma função que faça uma busca binária em um vetor de ponteiros
+// para o tipo Licenca, cujos elementos estão em ordem cronológica, de
+// acordo com a data de início das licenças, com desempate pela ordem
+// alfabética de acordo com o nome dos funcionários. Se existir mais de uma
+// licença com início na data procurada, a função deve retornar o índice da
+// primeira delas. Se não houver uma licença com a data procurada,
+// a função deve retornar -1. 
+typedef struct{
+  int dia, mes, ano;
+}Data;
+
+struct licenca{
+  char nome[51];         /* nome do funcionário */
+  Data inicio;           /* data de início da licença */
+  Data final;            /* data de final da licença */
+};
+typedef struct licenca tipoLicenca;
+
+int dataCmp(Data d1, Data d2){
+  if(d1.ano != d2.ano) return d1.ano - d2.ano;
+  if(d1.mes != d2.mes) return d1.mes - d2.mes;
+  if(d1.dia != d2.dia) return d1.dia - d2.dia;
+  return 0;
+}
+
+int buscarLicenca(tipoLicenca* v[], int n, Data d){
+  int i=0, f=n-1, m;
+
+  while(i <= f){
+    m = (i+f)/2;
+
+    if(dataCmp(d, v[m]->inicio) < 0)
+      f = m -1;
+
+    else if(dataCmp(d, v[m]->inicio) > 0)
+      i = m + 1;
+
+    else{
+      while( (m > 0) && dataCmp(d, v[m-1]->inicio)==0 )
+	m--;
+      return m;
+    }    
+  }    
+  return -1;
 }
