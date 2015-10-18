@@ -34,7 +34,7 @@ int linearSearch(int chave, int v[], int n){
 
 
 // BUSCA BINÁRIA:
-// melhor: O(1)   | pior: O(log2 n)
+// melhor: O(1)   | pior: O(log n) = log2 n
 int binarySearch(int chave, int v[], int n){
   int inicio=0, fim = n-1;
   int meio;
