@@ -50,6 +50,7 @@ int linearSearch(int chave, int v[], int n){
 
 
 // BUSCA BINÁRIA:
+// Se uma busca num vetor de tamanho N faz T iterações, então num vetor 8N fará apenas 3+T iterações (2³ = 8)
 // ideal= se a chave estiver na posição central do vetor | pior= 
 // melhor: O(1)   | pior: O(log n) = log2 n
 int binarySearch(int chave, int v[], int n){
