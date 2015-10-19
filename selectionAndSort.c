@@ -1,6 +1,9 @@
-#include <stdio.h>
+/* SIMULADORES:
+http://nicholasandre.com.br/sorting/
+http://algorithms.openmymind.net/
+*/
 
-// ORDENAÇÃO POR SELEÇÃO:
+// ORDENAÇÃO POR SELEÇÃO: ; 
 // melhor: O(n²)   | pior: O(n²)
 void selectionSort(int v[], int n){
   int i=0;
@@ -21,19 +24,31 @@ void selectionSort(int v[], int n){
   }
 }
 
-// BUSCA SEQUENCIAL/LINEAR:
+
+
+// BUSCA SEQUENCIAL/LINEAR: 
+// ideal= se a chave estiver na posição 0 do vetor | pior= se não existir ou for o último.
 // melhor: O(1)    | pior: O(n)
 int linearSearch(int chave, int v[], int n){
   int i=0;
+  
+  for(; i < n; i++){
+    if(v[i] == chave) return i;
+    else if(v[i] > chave) return -1; // *VERIFICAÇÃO IDEAL PARA VETOR EM ORDEM CRESCENTE
+  }
+  
+  // OTIMIZADO PARA VETOR NÃO ORDENADO:
   v[n] = chave;
-
   for(; v[i] != chave; i++);
   if(i < n) return i;
+  
   return -1;
 }
 
 
+
 // BUSCA BINÁRIA:
+// ideal= se a chave estiver na posição central do vetor | pior= 
 // melhor: O(1)   | pior: O(log n) = log2 n
 int binarySearch(int chave, int v[], int n){
   int inicio=0, fim = n-1;
@@ -53,7 +68,9 @@ int binarySearch(int chave, int v[], int n){
 }
 
 
-// ORDENAÇÃO POR INSERÇÃO:
+
+// ORDENAÇÃO POR INSERÇÃO: 
+// ideal= para vetores quase ordenados | pior= se o vetor estiver em ordem decrescente. 
 // melhor: O(n)   | pior: O(n²)
 void insertionSort(int v[], int n){
   int i=1;
@@ -62,7 +79,7 @@ void insertionSort(int v[], int n){
   for(; i<n; i++){
     pivot = v[i];
     j = i-1;
-
+    
     while( (j >= 0) && (v[j] > pivot) ){
       v[j+1] = v[j];
       j--;
@@ -71,6 +88,8 @@ void insertionSort(int v[], int n){
     v[j+1] = pivot;
   }    
 }
+
+
 
 // QUICK SORT:
 // melhor: O(n.log n)   | pior: O(n²)
