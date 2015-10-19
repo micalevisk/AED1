@@ -37,10 +37,12 @@ int linearSearch(int chave, int v[], int n){
     else if(v[i] > chave) return -1; // *VERIFICAÇÃO IDEAL PARA VETOR EM ORDEM CRESCENTE
   }
   
-  // OTIMIZADO PARA VETOR NÃO ORDENADO:
+  // OTIMIZAÇÃO PARA VETOR NÃO ORDENADO:
+  /*
   v[n] = chave;
   for(; v[i] != chave; i++);
   if(i < n) return i;
+  */
   
   return -1;
 }
