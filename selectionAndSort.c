@@ -72,4 +72,11 @@ void insertionSort(int v[], int n){
   }    
 }
 
+// QUICK SORT:
+// melhor: O(n.log n)   | pior: O(n²)
+
+
+
+
+
 /* written with GNU Emacs editor */
