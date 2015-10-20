@@ -96,9 +96,23 @@ void insertionSort(int v[], int n){
 
 // QUICK SORT:
 // melhor: O(n.log n)   | pior: O(n²)
+void quickSort(){}
 
 
 
+/*******************************************************
+	Array Sorting Algorithms:
+  BEST:				|   WORST:
+- Quicksort      O(nlog n)	| - Quicksort	   O(n²)
+- Insertion Sort O(n)		| - Insertion Sort O(n²)
+- Selection Sort O(n²)		| - Selection Sort O(n²)
+
+	Array Search Algorithms:
+  BEST:				|   WORST:
+- Linear Search  O(1) 		| - Binary Search  O(log n)
+- Binary Search  O(1)		| - Linear Search  O(n)
+
+*******************************************************/
 
 
-/* written with GNU Emacs editor */
+				/* written with GNU Emacs editor */
