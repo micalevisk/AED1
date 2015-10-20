@@ -276,12 +276,13 @@ float desvioPadraoDe(int v[], int n){
 }
 
 
-/* EXTRA: ----------------- */
+/* EXTRAS: ------------------------------------------------------------------ */
 
 // quantas vezes a chave se repete no vetor ordenado (busca binaria):
 int vezesQueRepete(int chave, int v[], int n){
   int inicio = 0, fim = n-1;
-  int meio, i, vezes = 0;
+  int meio;
+  int i, vezes = 0;
 
   while( inicio <= fim ){
     meio = (inicio+fim)/2;
@@ -289,20 +290,13 @@ int vezesQueRepete(int chave, int v[], int n){
     if(v[meio] < chave) inicio = meio+1;
     else if(v[meio] > chave) fim = meio-1;
     else{
-      i = meio + 1;
-      if(v[i] == chave){
-	while((v[i] == chave) && (meio <= fim)){
-	  vezes++;
-	  i++;
-	}
-      }
+      i = meio-1; // para percorrer o lado esquerdo
+      meio++;     // para percorrer o lado direito
 
-      i = meio-1;
-      if(v[i] == chave){
-	while((v[i] == chave) && (i >= inicio)){
-	  vezes++;
-	  i--;
-	}
+      while( (i >= inicio) || (meio <= fim) ){
+        vezes = vezes + (v[i] == chave) + (v[meio] == chave);      
+        i--;
+        meio++;
       }
 
       return vezes+1;				
@@ -310,6 +304,7 @@ int vezesQueRepete(int chave, int v[], int n){
   }
   return vezes;
 }
+
 
 
 // Calcular a media de altura dos porcos de uma fazenda,
@@ -332,6 +327,7 @@ float mediaDasAlturas(tipoPorco v[], int nPorcos){
   
   return soma / nPorcos;
 }
+
 
 
 // Escreva uma função que faça uma busca binária em um vetor de ponteiros 
@@ -367,6 +363,7 @@ Funcionario* buscarFuncionario(int n, Funcionario* v[], char nome[]){
   }
   return NULL;
 }
+
 
 
 // Escreva uma função que faça uma busca binária em um vetor de ponteiros
