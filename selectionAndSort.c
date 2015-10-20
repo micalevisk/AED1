@@ -62,7 +62,7 @@ int binarySearch(int chave, int v[], int n){
 
     if(v[meio] < chave) inicio = meio+1;
     
-    else if(v[meio] > chave) fim = meio -1
+    else if(v[meio] > chave) fim = meio -1;
     
     else return meio;
   }
