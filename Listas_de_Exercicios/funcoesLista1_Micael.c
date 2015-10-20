@@ -67,15 +67,10 @@ int textoVerdadeiro(char texto[]){
 int verSeEstaEmOrdemCrescente(int v[], int n){
   int i=0;
     
-  if( n > 1 ){
-    while( v[i] <= v[i+1] ){
-      if(i == n-2)
-	return 1;
-      i++;
-    }
-  }
-    
-  return (n==1); // se o tamanho for 1, então o vetor está ordenado.
+  for(; i < n-1; i++)
+    if( v[i] > v[i+1] ) return 0;
+  
+  return 1; // se o tamanho for 1 (0 < -1 :Falso), então o vetor está ordenado.
 }
 
 
@@ -298,8 +293,7 @@ int vezesQueRepete(int chave, int v[], int n){
         i--;
         meio++;
       }
-
-      return vezes+1;				
+      return vezes+1; // +1 para compensar a entrada no 'else'(= chave encontrada)				
     }
   }
   return vezes;
