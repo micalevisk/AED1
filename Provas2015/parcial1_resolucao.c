@@ -1,12 +1,11 @@
 //
 //  parcial1_resolucao.c
-//  Matrícula 21554923
 //  Created by Micael Levi on 21/10/15.
 //  Copyright (c) 2015 Micael Levi L. Cavalcante. All rights reserved
 //
 
 
-// 1: VER SE O NÚMERO É PRIMO
+// 1: VER SE O NUMERO EH PRIMO
 int ehPrimo(int numero){
   int i = 2;
 
@@ -21,7 +20,7 @@ int ehPrimo(int numero){
 
 
 
-// 2: MÉDIA DA ALTURA DOS VEGETARIANOS (tem 'S' no campo "veg")
+// 2: MEDIA DA ALTURA DOS VEGETARIANOS (tem 'S' no campo "veg")
 typedef struct{
   char nome[20];
   char veg;      
@@ -44,7 +43,7 @@ float alturaMediaDosVegetarianos(tipoPessoa v[], int nElementos){
 
 
 
-// 3: ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NÃO ORDENADO
+// 3: ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NAO ORDENADO
 int maisSeRepete(int v[], int n){
   int numero, i = 0;
   int vezes, aux= 0, maisSeRepete, j;
@@ -69,7 +68,7 @@ int maisSeRepete(int v[], int n){
 
 
 
-// 4: PREENCHER O VETOR COM OS ELEMENTOS QUE DARÃO O MAIOR PRODUTO INTERNO
+// 4: PREENCHER O VETOR COM OS ELEMENTOS QUE DARAO O MAIOR PRODUTO INTERNO
 void alterarVetor(int vet[], int mat[N][N]){
   int i, j, pInterno;
   int linha, aux=0;
