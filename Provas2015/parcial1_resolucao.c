@@ -45,20 +45,20 @@ float alturaMediaDosVegetarianos(tipoPessoa v[], int nElementos){
 
 // 3: ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NAO ORDENADO
 int maisSeRepete(int v[], int n){
-  int numero, i = 0;
-  int vezes, aux= 0, maisSeRepete, j;
+  int numero, aux;
+  int vezes, cont=0;
+  int i, j;
 
   for(; i < n; i++){
     numero = v[i];
     vezes  = 0;
     
-    for(j = i+1; j < n; j++){
+    for(j = i+1; j < n; j++)
       if(v[j] == numero) vezes++;
-    }
 
-    if(vezes > aux){
-      aux = vezes;
-      maisSeRepete = v[i];
+    if(vezes > cont){
+      cont = vezes;
+      aux  = numero;
     }
   }
 
