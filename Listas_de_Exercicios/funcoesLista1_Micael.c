@@ -343,7 +343,7 @@ Funcionario* buscarFuncionario(int n, Funcionario* v[], char nome[]){
 
   while(inicio <= fim){
     meio = (inicio+fim)/2;
-
+    //                  (*v[meio]).nome
     switch(strcmp(nome, v[meio]->nome)){
     case -1: // nome vem antes
       fim = meio - 1;
@@ -385,19 +385,19 @@ int dataCmp(Data d1, Data d2){
   return 0;
 }
 
-int buscarLicenca(tipoLicenca* v[], int n, Data d){
+int buscarLicenca(tipoLicenca *v[], int n, Data d){
   int i=0, f=n-1, m;
 
   while(i <= f){
     m = (i+f)/2;
-
+    //            (*v[m]).inicio
     if(dataCmp(d, v[m]->inicio) < 0)
       f = m -1;
-
+    //                (*v[m]).inicio
     else if(dataCmp(d, v[m]->inicio) > 0)
       i = m + 1;
 
-    else{
+    else{//                        (*v[m-1]).inico      
       while( (m > 0) && dataCmp(d, v[m-1]->inicio)==0 )
 	m--;
       return m;
