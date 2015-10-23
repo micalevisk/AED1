@@ -7,7 +7,7 @@
 
 // 1: VER SE O NUMERO POSITIVO PASSADO EH PRIMO
 int ehPrimo(unsigned numero){
-  unsigned int i = 2;
+  unsigned i = 2;
 
   while(i < numero){
     if((numero % i)==0)
@@ -15,7 +15,7 @@ int ehPrimo(unsigned numero){
     i++;
   }
 
-  return (numero != 0);
+  return (numero > 1); // pois 0 e 1 não são primos
 }
 
 
