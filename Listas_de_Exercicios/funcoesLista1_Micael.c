@@ -314,12 +314,15 @@ typedef struct{
 
 float mediaDasAlturas(tipoPorco v[], int nPorcos){
   float soma = 0;
-  int i;
+  int i, n=0;
   
-  for(i=0; i<nPorcos; i++)  
-    if(v[i].altura != 0.0) soma += v[i].altura;
+  for(i=0; i < nPorcos; i++)  
+    if(v[i].altura != 0.0){
+    	soma += v[i].altura;
+    	n++;
+    }
   
-  return soma / nPorcos;
+  return soma / n;
 }
 
 
