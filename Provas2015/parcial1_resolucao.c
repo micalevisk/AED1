@@ -5,9 +5,9 @@
 //
 
 
-// 1: VER SE O NUMERO EH PRIMO
-int ehPrimo(int numero){
-  int i = 2;
+// 1: VER SE O NUMERO POSITIVO PASSADO EH PRIMO
+int ehPrimo(unsigned numero){
+  unsigned int i = 2;
 
   while(i < numero){
     if((numero % i)==0)
