@@ -256,7 +256,7 @@ int somaDiagonalSecundaria(int matriz[N][N]){
 float desvioPadraoDe(int v[], int n){
   int i;
   float somaDosQuadradosDasDifrencas=0;
-  float mediaGeral, variancia=0;
+  float mediaGeral=0, variancia=0;
     
   for(i=0; i<n; i++)
     mediaGeral += v[i];
