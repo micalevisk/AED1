@@ -98,26 +98,26 @@ void insertionSort(int v[], int n){
 // melhor: O(n.log n)   | pior: O(n²)
 void quickSort(int v[], int esq, int dir){
   int i, j, x, y;
-  i = esq;
-  j = dir;
-  x = v[(esq+dir)/2];
+  i = esq;            // inicio
+  f = dir;            // fim
+  x = v[(esq+dir)/2]; // pivot
 
   while(i <= j){
 
     while((v[i] < x) && (i < dir)) i++;
 
-    while((v[j] > x) && (j > esq)) j--;
+    while((v[f] > x) && (f > esq)) f--;
 
-    if(i <= j){
+    if(i <= f){
       y    = v[i];
-      v[i] = v[j];
-      v[j] = y;
+      v[i] = v[f];
+      v[f] = y;
       i++;
-      j--;      
+      f--;      
     }
   }
-  if(j > esq) quickSort(v, esq, j);
-  if(i < dir) quickSort(v, i, dir);  
+  if(f > esq) quickSort(v, esq, f); // ordena a primeira parte (lado esquerdo do pivot)
+  if(i < dir) quickSort(v, i, dir); // ordena a segunda  parte (lado direito do pivot) 
 }
 
 
