@@ -94,9 +94,38 @@ void insertionSort(int v[], int n){
 
 
 
-// QUICK SORT:
+// QUICKSORT:
 // melhor: O(n.log n)   | pior: O(n²)
-void quickSort(){}
+void quickSort(int v[], int esq, int dir){
+  int i, j, x, y;
+  i = esq;
+  j = dir;
+  x = v[(esq+dir)/2];
+
+  while(i <= j){
+
+    while((v[i] < x) && (i < dir)) i++;
+
+    while((v[j] > x) && (j > esq)) j--;
+
+    if(i <= j){
+      y    = v[i];
+      v[i] = v[j];
+      v[j] = y;
+      i++;
+      j--;      
+    }
+  }
+  if(j > esq) quickSort(v, esq, j);
+  if(i < dir) quickSort(v, i, dir);  
+}
+
+
+
+// MERGE SORT:
+// melhor: O(n.log 2n)   | pior: O(n.log n)
+void mergeSort(){}
+
 
 
 
