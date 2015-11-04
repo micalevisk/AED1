@@ -149,6 +149,9 @@ void intercalar(int V[], int inicio, int meio, int fim){
 	  vaux[i] = V[p2];
 	  p2++;
 	}
+
+	if(p1 > meio) fim1 =1;
+	if(p2 > fim)  fim2 =1;
       }
       else{
 	if(!fim1){
