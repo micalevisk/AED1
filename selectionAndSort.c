@@ -96,34 +96,37 @@ void insertionSort(int v[], int n){
 
 // QUICKSORT:
 // melhor: O(n.log n)   | pior: O(n²)
-void quickSort(int v[], int esq, int dir){
-  int i, j, x, y;
-  i = esq;            // inicio
-  f = dir;            // fim
-  x = v[(esq+dir)/2]; // pivot
+void particionar(int v[], int inicio, int fim){
+  int pivot, aux, i, j;
 
-  while(i <= j){
-
-    while((v[i] < x) && (i < dir)) i++;
-
-    while((v[f] > x) && (f > esq)) f--;
-
-    if(i <= f){
-      y    = v[i];
-      v[i] = v[f];
-      v[f] = y;
+  if(fim - inicio > 0){
+    i = inicio;            
+    j = fim;           
+    pivot = v[(i+j)/2];
+    do{
+      while(v[i] < pivot) i++;
+      while(v[j] > pivot) j--;
+      
+      aux = v[i];
+      v[i] = v[j];
+      v[j] = aux;
       i++;
-      f--;      
-    }
+      j--;
+            	
+    }while(i <= j);
+   
+    if(inicio < j) particionar(v, inicio, j);
+    if(i < fim)    particionar(v, i, fim);
   }
-  if(f > esq) quickSort(v, esq, f); // ordena a primeira parte (lado esquerdo do pivot)
-  if(i < dir) quickSort(v, i, dir); // ordena a segunda  parte (lado direito do pivot) 
+}
+
+void quickSort(int v[], int n){
+  particionar(v, 0, n-1);
 }
 
 
-
 // MERGE SORT:
-// melhor: O(n.log 2n)   | pior: O(n.log n)
+// melhor: O(n.log n)   | pior: O(n.log n)
 void mergeSort(){}
 
 
@@ -133,6 +136,7 @@ void mergeSort(){}
 	Array Sorting Algorithms:
   BEST:				|   WORST:
 - Quicksort      O(nlog n)	| - Quicksort	   O(n²)
+- Merge Sort     O(nlog n)	| - Merge Sort	   O(nlog n)
 - Insertion Sort O(n)		| - Insertion Sort O(n²)
 - Selection Sort O(n²)		| - Selection Sort O(n²)
 
