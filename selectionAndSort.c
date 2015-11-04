@@ -94,7 +94,7 @@ void insertionSort(int v[], int n){
 
 
 
-// QUICKSORT:
+// ORDENAÇÃO POR QUICKSORT:
 // melhor: O(n.log n)   | pior: O(n²)
 void particionar(int v[], int inicio, int fim){
   int pivot, aux, i, j;
@@ -125,9 +125,59 @@ void quickSort(int v[], int n){
 }
 
 
-// MERGE SORT:
+
+// ORDENAÇÃO POR INTERCALAÇÃO:
 // melhor: O(n.log n)   | pior: O(n.log n)
-void mergeSort(){}
+#include <stdlib.h>
+
+void intercalar(int V[], int inicio, int meio, int fim){
+  int *vaux, p1, p2, n, i, k;
+  int fim1 =0, fim2 =0;
+  n = fim - inicio + 1;
+  p1 = inicio;
+  p2 = meio+1;
+  vaux = (int *) malloc(sizeof(int)*n);
+
+  if(vaux != NULL){
+    for(i=0; i<n; i++){
+      if(!fim1 && !fim2){
+
+	if(V[p1] < V[p2]){
+	  vaux[i] = V[p1];
+	  p1++;
+	}else{
+	  vaux[i] = V[p2];
+	  p2++;
+	}
+      }
+      else{
+	if(!fim1){
+	  vaux[i] = V[p1];
+	  p1++;
+	}else{
+	  vaux[i] = V[p2];
+	  p2++;
+	}	
+      }      
+    }
+    
+    for(i=0, k=inicio; i<n; i++, k++) V[k] = vaux[i];
+  }
+  free(vaux);
+}
+
+void mergeSort(int v[], int inicio, int fim){
+  int meio;
+  if(inicio < fim){
+    meio = (inicio + fim)/2;
+
+    mergeSort(v, inicio, meio);
+    mergeSort(v, meio+1, fim);
+    intercalar(v, inicio, meio, fim);
+  }
+}
+    
+  
 
 
 
@@ -146,6 +196,16 @@ void mergeSort(){}
 - Binary Search  O(1)		| - Linear Search  O(n)
 
 *******************************************************/
+
+/*
+               Insertion  |   Quick  |  Merge
+Random        :  3.6      |    2.5   |   2.9
+Nearly Sorted :  0.8      |    5.8   |   2.9
+Reversed      :  5.3      |    6.0   |   3.0
+Few Unique    :  3.1      |    2.8   |   3.0
+Sorted & Small:  0.2      |    0.9   |   0.7
+
+*/
 
 
 				/* written with GNU Emacs editor */
