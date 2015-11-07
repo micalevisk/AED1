@@ -6,15 +6,14 @@
 
 
 // 1: VER SE O NUMERO POSITIVO PASSADO EH PRIMO
-int ehPrimo(unsigned numero){
+int ehPrimo(int numero){
   unsigned i = 2;
+  int limite  = sqrt(numero);
 
-  while(i < numero){
+  for(; i <= limite; i++){
     if((numero % i)==0)
       return 0;
-    i++;
   }
-
   return (numero > 1); // pois 0 e 1 não são primos
 }
 
@@ -28,17 +27,18 @@ typedef struct{
 } tipoPessoa;
 
 float alturaMediaDosVegetarianos(tipoPessoa v[], int nElementos){
-  float media    = 0.0;
+  float soma     = 0.0;
   int quantidade = 0;
   nElementos--; // contador;
 
   for(; nElementos >= 0; nElementos--){
     if(v[nElementos].veg == 'S'){
-      media += v[nElementos].altura;
+      soma += v[nElementos].altura;
       quantidade++;
     }
   }
-  return (media/quantidade);
+  if(quantidade) return (soma/quantidade);
+  return 0;
 }
 
 
