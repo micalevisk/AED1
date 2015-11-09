@@ -130,57 +130,57 @@ void quickSort(int v[], int n){
 // melhor: O(n.log n)   | pior: O(n.log n)
 #include <stdlib.h>
 
-void intercalar(int V[], int inicio, int meio, int fim){
-  int *vaux, p1, p2, n, i, k;
-  int fim1 =0, fim2 =0;
-  n = fim - inicio + 1;
-  p1 = inicio;
-  p2 = meio+1;
-  vaux = (int *) malloc(sizeof(int)*n);
+void intercalar(int v[], int vaux[], int inicio, int fim, int meio) {
+  int i, j,k;
 
-  if(vaux != NULL){
-    for(i=0; i<n; i++){
-      if(!fim1 && !fim2){
+  k = inicio;
+  i = inicio;
+  j = meio+1;
 
-	if(V[p1] < V[p2]){
-	  vaux[i] = V[p1];
-	  p1++;
-	}else{
-	  vaux[i] = V[p2];
-	  p2++;
-	}
-
-	if(p1 > meio) fim1 =1;
-	if(p2 > fim)  fim2 =1;
-      }
-      else{
-	if(!fim1){
-	  vaux[i] = V[p1];
-	  p1++;
-	}else{
-	  vaux[i] = V[p2];
-	  p2++;
-	}	
-      }      
+  while((i <= meio) && (j <= fim)){
+    if(v[i] < v[j]) {
+      vaux[k] = v[i];
+      i++;
     }
-    
-    for(i=0, k=inicio; i<n; i++, k++) V[k] = vaux[i];
+    else{
+      vaux[k]= v[j];
+      j++;
+    }
+    k++;
   }
+
+  while(i<=meio){
+    vaux[k] = v[i];
+    i++; 
+    k++;
+  }
+
+  while(j <= fim){
+    vaux[k]= v[j];
+    j++;
+    k++;
+  }
+  for(k = inicio; k <=fim; k++)
+    v[k]=vaux[k];
+}
+
+void mergeSortInterno(int v[], int vaux[], int inicio, int fim) {
+  int meio;
+  if(inicio < fim) {
+    meio = (inicio+fim)/2;
+    mergeSortInterno(v,vaux,inicio, meio);
+    mergeSortInterno(v,vaux, meio+1,fim);
+    intercalar(v,vaux,inicio,fim,meio);
+  }
+}
+    
+void mergeSort(int v[], int n) {
+  int *vaux;
+
+  vaux = (int*) malloc(sizeof(int)*n);
+  mergeSortInterno(v,vaux,0,n-1);
   free(vaux);
 }
-
-void mergeSort(int v[], int inicio, int fim){
-  int meio;
-  if(inicio < fim){
-    meio = (inicio + fim)/2;
-
-    mergeSort(v, inicio, meio);
-    mergeSort(v, meio+1, fim);
-    intercalar(v, inicio, meio, fim);
-  }
-}
-    
-  
 
 
 
