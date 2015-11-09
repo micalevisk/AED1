@@ -11,7 +11,7 @@ typedef  struct tipoNo {
 
 
 void criarLista(tipoNo **p ) {
- *p = NULL;
+  *p = NULL;
 }
 
 void inserirNaLista(tipoNo **p, int valor) {
@@ -42,22 +42,35 @@ int buscarElementoNaLista(tipoNo *p, int elemento){
 
 
 
-int removerElemento(tipoNo *p, int elemento){
-  tipoNo *aux;
+int removerElemento(tipoNo **p, int elemento){
+  tipoNo *pp = *p;
+  tipoNo *aux = NULL;
+  
+  while(pp){
 
-  while(p){
-    aux = p->prox;
-    if(elemento == aux->val){
-      p->prox = aux->prox;
-      free(aux);
-      return 1; // elemento removido
+    if(!aux){
+      if(pp->val == elemento){
+	*p = pp->prox;
+	free(pp);
+	return 1;
+      }
     }
-    p = p->prox;
+
+    aux = pp->prox;    
+    if(aux){
+      if(aux->val == elemento){
+	pp->prox = aux->prox;
+	free(aux);
+	return 1;
+      }
+      pp = aux;
+    }    
   }
+  
   return 0; // nao encontrou o elemento
 }
 
-
+// TO FIX:
 int removerElemento2(tipoNo **prim, int elemento){
   tipoNo *aux = NULL;
   tipoNo *p   = *prim;
@@ -67,10 +80,9 @@ int removerElemento2(tipoNo **prim, int elemento){
     if(elemento == p->val){
       if(aux == NULL) *prim = p->prox;
       else             aux->prox = p->prox;
-        free(p);
-      }      
+      free(p);
       return 1; // elemento removido
-    }
+    }          
     aux = p;
     p = p->prox;
   }
@@ -92,23 +104,32 @@ int main() {
   for(numero=0; numero < 5; numero++) // criar lista com 5 elementos
     inserirNaLista(&prim, rand()%12); // 0 a 11
 
-/* 
-  while(fim){
-    printf(">> Digite um numero para inserir: ");
-    scanf("%d",&numero);
-    inserirNaLista(&prim, numero);
+  /* 
+     while(fim){
+     printf(">> Digite um numero para inserir: ");
+     scanf("%d",&numero);
+     inserirNaLista(&prim, numero);
 
-    printf(">> Deseja inserir um valor na lista? (0 = nao): ");
-    scanf("%d",&fim);
-  }
-*/
+     printf(">> Deseja inserir um valor na lista? (0 = nao): ");
+     scanf("%d",&fim);
+     }
+  */
 
+  printf(">> Lista criada: ");
   mostrarElementosLista(prim);
-  mostrarElementosLista(prim->prox->prox); // mostrar a partir do 3o elemento
 
+  printf(">> Digite o valor do elemento que quer remover: ");
+  scanf("%d",&numero);
+  removerElemento(&prim, numero);
+
+  printf("\n>> Lista alterada: ");
+  mostrarElementosLista(prim);
+   
+  /*
   printf("\n>> Qual valor deseja buscar na lista?: ");
   scanf("%d",&numero);
 
-  (buscarElementoNaLista(prim, numero)) ? printf(">> Valor encontrado\n") : printf(">> Valor nao encontrado\n");
-
+  (buscarElementoNaLista(prim, numero)) ? printf(">> Valor encontrado\n") :
+                                          printf(">> Valor nao encontrado\n");
+  */
 }
