@@ -25,11 +25,10 @@ int valorDoPrimeiro(tipoNo *prim){
 }
 
 void mostrarLista(tipoNo *prim){
-  tipoNo *aux = prim;
 
-  while(aux != NULL){
-    printf("%d, ",aux->val);
-    aux = aux->prox;    
+  while(prim){
+    printf("%d, ",p->val);
+    p = p->prox;    
   }
   printf("\n");
 }
