@@ -62,9 +62,9 @@ int removerElemento(tipoNo **p, int elemento){
 	pp->prox = aux->prox;
 	free(aux);
 	return 1;
-      }
-      pp = aux;
-    }    
+      } 
+    }
+    pp = aux;
   }
   
   return 0; // nao encontrou o elemento
