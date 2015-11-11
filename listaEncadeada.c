@@ -49,12 +49,12 @@ void mostrarElementosLista(tipoNo *p) {
 }
 
 
-int buscarElementoNaLista(tipoNo *p, int elemento){
+tipoNo* buscarElemento(tipoNo *p, int elemento){
   while(p){
-    if(elemento == p->val) return 1; // elemento encontrado.
+    if(elemento == p->val) return p; // elemento encontrado.
     p = p->prox;
   }
-  return 0; // elemento NAO encontrado.
+  return NULL; // elemento NAO encontrado.
 }
 
 
@@ -108,6 +108,7 @@ int removerElemento2(tipoNo **prim, int elemento){
 
 
 
+  
 
 int main() {
   srand(time(NULL));
@@ -146,7 +147,7 @@ int main() {
   printf("\n>> Qual valor deseja buscar na lista?: ");
   scanf("%d",&numero);
 
-  (buscarElementoNaLista(prim, numero)) ? printf(">> Valor encontrado\n") :
-                                          printf(">> Valor nao encontrado\n");
+  (buscarElemento(prim, numero)) ? printf(">> Valor encontrado\n") :
+                                   printf(">> Valor nao encontrado\n");
   */
 }
