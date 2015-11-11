@@ -14,13 +14,30 @@ void criarLista(tipoNo **p ) {
   *p = NULL;
 }
 
-void inserirNaLista(tipoNo **p, int valor) {
+void inserirNoInicio(tipoNo **p, int valor) { 
   tipoNo *aux;
   aux = (tipoNo*) malloc(sizeof(tipoNo));
+  if(aux){             // alocacao realizada.
+    aux->val = valor;
+    aux->prox = *p;
+    *p = aux;
+  }
+}
+
+void inserirNoFinal(tipoNo **p, int valor) { 
+  tipoNo *novoNo, *aux = *p;
   
-  aux->val = valor;
-  aux->prox = *p;
-  *p = aux;
+  novoNo = (tipoNo*) malloc(sizeof(tipoNo));
+  if(novoNo){             // alocacao realizada.
+    novoNo->val  = valor;
+    novoNo->prox = NULL;  // pois serah o ultimo da lista.
+
+    if(!*p) *p = novoNo;  // para lista vazia.
+    else{                 // para lista nao vazia.
+      while(aux->prox)	aux = aux->prox;
+      aux->prox = novoNo; 
+    }       
+  }
 }
 
 void mostrarElementosLista(tipoNo *p) {
@@ -34,10 +51,10 @@ void mostrarElementosLista(tipoNo *p) {
 
 int buscarElementoNaLista(tipoNo *p, int elemento){
   while(p){
-    if(elemento == p->val) return 1; // elemento encontrado
+    if(elemento == p->val) return 1; // elemento encontrado.
     p = p->prox;
   }
-  return 0; // elemento NAO encontrado
+  return 0; // elemento NAO encontrado.
 }
 
 
@@ -100,15 +117,15 @@ int main() {
 
   int fim=1;
   int numero;
-
+/* rand()%12 */
   for(numero=0; numero < 5; numero++) // criar lista com 5 elementos
-    inserirNaLista(&prim, rand()%12); // 0 a 11
+    inserirNoFinal(&prim, numero); // 0 a 11
 
   /* 
      while(fim){
      printf(">> Digite um numero para inserir: ");
      scanf("%d",&numero);
-     inserirNaLista(&prim, numero);
+     inserirNoInicio(&prim, numero);
 
      printf(">> Deseja inserir um valor na lista? (0 = nao): ");
      scanf("%d",&fim);
