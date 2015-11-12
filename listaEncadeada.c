@@ -14,6 +14,7 @@ void criarLista(tipoNo **p ) {
   *p = NULL;
 }
 
+
 void inserirNoInicio(tipoNo **p, int valor) { 
   tipoNo *aux;
   aux = (tipoNo*) malloc(sizeof(tipoNo));
@@ -23,6 +24,7 @@ void inserirNoInicio(tipoNo **p, int valor) {
     *p = aux;
   }
 }
+
 
 void inserirNoFinal(tipoNo **p, int valor) { 
   tipoNo *novoNo, *aux = *p;
@@ -40,9 +42,10 @@ void inserirNoFinal(tipoNo **p, int valor) {
   }
 }
 
+
 void mostrarElementosLista(tipoNo *p) {
   while(p) {
-    printf("%d ",p->val);
+    printf("%d, ",p->val);
     p = p->prox;
   }
   printf("\n");
@@ -58,57 +61,28 @@ tipoNo* buscarElemento(tipoNo *p, int elemento){
 }
 
 
+int removerElemento(tipoNo **prim, int elemento){
+  tipoNo *anterior = NULL;
+  tipoNo *atual    = *prim;
 
-int removerElemento(tipoNo **p, int elemento){
-  tipoNo *pp = *p;
-  tipoNo *aux = NULL;
-  
-  while(pp){
-
-    if(!aux){
-      if(pp->val == elemento){
-	*p = pp->prox;
-	free(pp);
-	return 1;
-      }
-    }
-
-    aux = pp->prox;    
-    if(aux){
-      if(aux->val == elemento){
-	pp->prox = aux->prox;
-	free(aux);
-	return 1;
-      } 
-    }
-    pp = aux;
-  }
-  
-  return 0; // nao encontrou o elemento
-}
-
-// TO FIX:
-int removerElemento2(tipoNo **prim, int elemento){
-  tipoNo *aux = NULL;
-  tipoNo *p   = *prim;
-
-  while(p){
-
-    if(elemento == p->val){
-      if(aux == NULL) *prim = p->prox;
-      else             aux->prox = p->prox;
-      free(p);
-      return 1; // elemento removido
+  while(atual){
+    if((atual->val) == elemento){
+      if(!anterior) *prim  = atual->prox;
+      else  anterior->prox = atual->prox;
+      
+      free(atual);
+      return 1;
     }          
-    aux = p;
-    p = p->prox;
+    anterior = atual;
+    atual    = atual->prox;
   }
   return 0; // nao encontrou o elemento
 }
 
 
 
-  
+
+
 
 int main() {
   srand(time(NULL));
@@ -118,31 +92,34 @@ int main() {
 
   int fim=1;
   int numero;
-/* rand()%12 */
+  
   for(numero=0; numero < 5; numero++) // criar lista com 5 elementos
-    inserirNoFinal(&prim, numero); // 0 a 11
+    inserirNoFinal(&prim, rand()%12); // 0 a 11
+  
+  /*
+  while(fim){
+    printf(">> Digite um numero para inserir: ");
+    scanf("%d",&numero);
+    inserirNoInicio(&prim, numero);
 
-  /* 
-     while(fim){
-     printf(">> Digite um numero para inserir: ");
-     scanf("%d",&numero);
-     inserirNoInicio(&prim, numero);
-
-     printf(">> Deseja inserir um valor na lista? (0 = nao): ");
-     scanf("%d",&fim);
-     }
+    printf(">> Deseja inserir um valor na lista? (0 = nao): ");
+    scanf("%d",&fim);
+  }
   */
+  
 
   printf(">> Lista criada: ");
   mostrarElementosLista(prim);
-
-  printf(">> Digite o valor do elemento que quer remover: ");
-  scanf("%d",&numero);
-  removerElemento(&prim, numero);
-
-  printf("\n>> Lista alterada: ");
-  mostrarElementosLista(prim);
-   
+  
+  while(prim){
+    printf(">> Digite o valor do elemento que quer remover: ");
+    scanf("%d",&numero);
+    removerElemento(&prim, numero);
+ 
+    printf("\n>> Lista alterada: ");
+    mostrarElementosLista(prim);
+  }
+  
   /*
   printf("\n>> Qual valor deseja buscar na lista?: ");
   scanf("%d",&numero);
