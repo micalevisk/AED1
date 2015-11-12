@@ -81,6 +81,23 @@ int removerElemento(tipoNo **prim, int elemento){
 
 
 
+void removerElementoDaPosicao(unsigned k, tipoNo **prim){
+  tipoNo *anterior = NULL;
+  tipoNo *atual = *prim;
+
+  for(; atual; k--){
+    if(k == 1){
+      if(!anterior) *prim = atual->prox;
+      else anterior->prox = atual->prox;
+
+      free(atual);
+      break;
+    }
+    anterior = atual;
+    atual    = atual->prox;
+  }  
+}
+
 
 
 
