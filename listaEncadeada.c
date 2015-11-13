@@ -4,99 +4,127 @@
 
 #include <time.h>
 
-typedef  struct tipoNo {
-  int val;
+typedef struct{             // informações sobre o elemento
+  char nome[10];
+  float preco;
+} tipoProduto;
+
+typedef  struct tipoNo{     // elemento da lista
+  tipoProduto produto;
   struct tipoNo *prox;
 } tipoNo;
 
+typedef struct{             // guarda o endereço do primeiro da lista
+  tipoNo *cabeca;
+} tipoLista;
 
-void criarLista(tipoNo **p ) {
-  *p = NULL;
+
+
+void criarLista(tipoLista *l) {
+  l->cabeca = NULL;
 }
 
 
-void inserirNoInicio(tipoNo **p, int valor) { 
-  tipoNo *aux;
-  aux = (tipoNo*) malloc(sizeof(tipoNo));
-  if(aux){             // alocacao realizada.
-    aux->val = valor;
-    aux->prox = *p;
-    *p = aux;
+void inserirNoInicioDaLista(tipoLista *l, tipoProduto elemento) { 
+  tipoNo *novo;
+  novo = (tipoNo*) malloc(sizeof(tipoNo));
+  if(novo){             // alocacao realizada.
+    novo->produto = elemento;
+    novo->prox    = l->cabeca;
+    l->cabeca     = novo;
   }
 }
 
 
-void inserirNoFinal(tipoNo **p, int valor) { 
-  tipoNo *novoNo, *aux = *p;
+void inserirNoFinalDaLista(tipoLista *l, tipoProduto elemento) {
+  tipoNo *novo, *aux = l->cabeca;
+  novo = (tipoNo*) malloc(sizeof(tipoNo));
   
-  novoNo = (tipoNo*) malloc(sizeof(tipoNo));
-  if(novoNo){             // alocacao realizada.
-    novoNo->val  = valor;
-    novoNo->prox = NULL;  // pois serah o ultimo da lista.
+  if(novo){
 
-    if(!*p) *p = novoNo;  // para lista vazia.
-    else{                 // para lista nao vazia.
-      while(aux->prox)	aux = aux->prox;
-      aux->prox = novoNo; 
-    }       
+    novo->produto = elemento;
+    novo->prox    = NULL;
+
+    if(!aux) l->cabeca = novo; // para lista vazia: o novo elemento será o cabeça
+    else{
+      while(aux->prox) aux = aux->prox;
+      aux->prox = novo;
+    }    
   }
 }
 
 
-void mostrarElementosLista(tipoNo *p) {
-  while(p) {
-    printf("%d, ",p->val);
-    p = p->prox;
+void mostrarElementosDaLista(tipoLista *L) {
+  tipoNo* aux = L->cabeca;
+  while(aux){
+    printf(" nome: %s | preco: %.2f \n", aux->produto.nome, aux->produto.preco);
+    aux = aux->prox;
   }
-  printf("\n");
 }
 
 
-tipoNo* buscarElemento(tipoNo *p, int elemento){
-  while(p){
-    if(elemento == p->val) return p; // elemento encontrado.
-    p = p->prox;
-  }
+tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){ // (não otimizado)
+  while(l.cabeca){
+    if( !strcmp(l.cabeca->produto.nome, nomeElemento)  )
+      return l.cabeca;
+    
+    l.cabeca = l.cabeca->prox;
+  }  
   return NULL; // elemento NAO encontrado.
 }
 
 
-int removerElemento(tipoNo **prim, int elemento){
-  tipoNo *anterior = NULL;
-  tipoNo *atual    = *prim;
+int removerElementoDaLista(tipoLista *L, char produto[]){
+  tipoNo *anterior = NULL, *atual = L->cabeca;
 
   while(atual){
-    if((atual->val) == elemento){
-      if(!anterior) *prim  = atual->prox;
+    if( !strcmp(atual->produto.nome, produto) ){
+      if(!anterior) L->cabeca = atual->prox;
       else  anterior->prox = atual->prox;
-      
       free(atual);
       return 1;
-    }          
+    }
+
     anterior = atual;
-    atual    = atual->prox;
+    atual    = atual->prox;    
   }
-  return 0; // nao encontrou o elemento
+  return 0; 
 }
 
 
-
-void removerElementoDaPosicao(unsigned k, tipoNo **prim){
-  tipoNo *anterior = NULL;
-  tipoNo *atual = *prim;
-
-  for(; atual; k--){
-    if(k == 1){
-      if(!anterior) *prim = atual->prox;
-      else anterior->prox = atual->prox;
-
+void removerElementoDaPosicao(int k, tipoLista *l){
+  tipoNo *anterior = NULL, *atual = l->cabeca;
+  // atual 'anda' até ser o elemento que será removido
+  for(; (atual) && (k>0); k--){
+    if(k != 1){
+      anterior = atual;
+      atual    = atual->prox;
+    }else{ 
+      if(!anterior) l->cabeca = atual->prox;
+      else     anterior->prox = atual->prox;
       free(atual);
-      break;
     }
-    anterior = atual;
-    atual    = atual->prox;
   }  
 }
+
+
+void removerElementoDaPosicao2(int k, tipoLista *l){ 
+  tipoNo *anterior = l->cabeca, *proximo = NULL;
+  
+  if((k == 1) && (anterior)){
+    l->cabeca = anterior->prox;
+    free(anterior);
+  }
+  else{ // anterior 'anda' até ser o elemento antes do que será removido (k=1)
+    for(; (anterior->prox) && (k>2); k--) anterior = anterior->prox;
+    if(anterior != l->cabeca){
+      proximo        = anterior->prox;
+      anterior->prox = proximo->prox;
+      free(proximo);
+    }
+  }  
+}
+
 
 
 
@@ -104,44 +132,48 @@ void removerElementoDaPosicao(unsigned k, tipoNo **prim){
 int main() {
   srand(time(NULL));
 
-  tipoNo *prim;
-  criarLista(&prim);
+  tipoLista lista;
+  criarLista(&lista);
 
-  int fim=1;
-  int numero;
-  
-  for(numero=0; numero < 5; numero++) // criar lista com 5 elementos
-    inserirNoFinal(&prim, rand()%12); // 0 a 11
-  
-  /*
-  while(fim){
-    printf(">> Digite um numero para inserir: ");
-    scanf("%d",&numero);
-    inserirNoInicio(&prim, numero);
+  tipoProduto comida, limpeza, corpo;
+  strcpy(comida.nome, "Banana");  comida.preco = 2.57;
+  strcpy(limpeza.nome, "SabaoP"); limpeza.preco = 5.34;
+  strcpy(corpo.nome, "Toalha");   corpo.preco = 8.24;
 
-    printf(">> Deseja inserir um valor na lista? (0 = nao): ");
-    scanf("%d",&fim);
+  printf("\n>> Inserindo e Exibindo: \n");
+  inserirNoFinalDaLista(&lista, comida);   // 2o
+  inserirNoFinalDaLista(&lista, limpeza);  // 3o
+  inserirNoInicioDaLista(&lista, corpo);   // 1o
+  mostrarElementosDaLista(&lista);
+  printf("\n");
+
+  printf("\n>> Buscando e Retornando Resultado: \n");
+  tipoNo *elemento = buscarElementoNaLista(lista, "Toalha");
+  if(elemento){
+    printf(">> O produto foi encontrado!: \n");
+    printf(" NOME: %s -- PRECO: %.2f\n", elemento->produto.nome, (*elemento).produto.preco);
   }
-  */
-  
+  else
+    printf("\n>> O produto buscado nao foi encontrado! \n");
 
-  printf(">> Lista criada: ");
-  mostrarElementosLista(prim);
   
-  while(prim){
-    printf(">> Digite o valor do elemento que quer remover: ");
-    scanf("%d",&numero);
-    removerElemento(&prim, numero);
- 
-    printf("\n>> Lista alterada: ");
-    mostrarElementosLista(prim);
+  printf("\n>> Removendo e Exibindo: \n");
+  (removerElementoDaLista(&lista, "Banana")) ? mostrarElementosDaLista(&lista) :
+                                               printf(">> Produto nao encontrado!");
+  printf("\n");
+
+
+  int pos;
+  printf("\n>> Removendo da Posicao 'pos' e Exibindo: \n");
+  while(lista.cabeca){
+    printf(">> Posicao do elemento a remover: ");
+    scanf("%d",&pos);
+    removerElementoDaPosicao2(pos, &lista);
+
+    printf("\n>> Lista Atualizada: \n");
+    (lista.cabeca) ? mostrarElementosDaLista(&lista): printf("<vazia>\n");
   }
+  printf("\n");
   
-  /*
-  printf("\n>> Qual valor deseja buscar na lista?: ");
-  scanf("%d",&numero);
 
-  (buscarElemento(prim, numero)) ? printf(">> Valor encontrado\n") :
-                                   printf(">> Valor nao encontrado\n");
-  */
 }
