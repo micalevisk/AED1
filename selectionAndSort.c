@@ -106,13 +106,13 @@ void particionar(int v[], int inicio, int fim){
     do{
       while(v[i] < pivot) i++;
       while(v[j] > pivot) j--;
-      
-      aux = v[i];
-      v[i] = v[j];
-      v[j] = aux;
-      i++;
-      j--;
-            	
+      if(i <= j){
+	aux = v[i];
+	v[i] = v[j];
+	v[j] = aux;
+	i++;
+	j--;
+      }
     }while(i <= j);
    
     if(inicio < j) particionar(v, inicio, j);
