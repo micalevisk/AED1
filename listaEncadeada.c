@@ -4,7 +4,7 @@
 
 #include <time.h>
 
-typedef struct{             // informações sobre o elemento
+typedef struct{             // informaÃ§Ãµes sobre o elemento
   char nome[10];
   float preco;
 } tipoProduto;
@@ -14,14 +14,14 @@ typedef  struct tipoNo{     // elemento da lista
   struct tipoNo *prox;
 } tipoNo;
 
-typedef struct{             // guarda o endereço do primeiro da lista
-  tipoNo *cabeca;
+typedef struct{             // guarda o endereÃ§o do primeiro da lista
+  tipoNo *prim;
 } tipoLista;
 
 
 
 void criarLista(tipoLista *l) {
-  l->cabeca = NULL;
+  l->prim = NULL;
 }
 
 
@@ -30,22 +30,21 @@ void inserirNoInicioDaLista(tipoLista *l, tipoProduto elemento) {
   novo = (tipoNo*) malloc(sizeof(tipoNo));
   if(novo){             // alocacao realizada.
     novo->produto = elemento;
-    novo->prox    = l->cabeca;
-    l->cabeca     = novo;
+    novo->prox    = l->prim;
+    l->prim     = novo;
   }
 }
 
 
 void inserirNoFinalDaLista(tipoLista *l, tipoProduto elemento) {
-  tipoNo *novo, *aux = l->cabeca;
+  tipoNo *novo, *aux = l->prim;
   novo = (tipoNo*) malloc(sizeof(tipoNo));
   
   if(novo){
-
     novo->produto = elemento;
     novo->prox    = NULL;
 
-    if(!aux) l->cabeca = novo; // para lista vazia: o novo elemento será o cabeça
+    if(!aux) l->prim = novo; // para lista vazia: o novo elemento serÃ¡ o cabeÃ§a
     else{
       while(aux->prox) aux = aux->prox;
       aux->prox = novo;
@@ -55,7 +54,7 @@ void inserirNoFinalDaLista(tipoLista *l, tipoProduto elemento) {
 
 
 void mostrarElementosDaLista(tipoLista *L) {
-  tipoNo* aux = L->cabeca;
+  tipoNo* aux = L->prim;
   while(aux){
     printf(" nome: %s | preco: %.2f \n", aux->produto.nome, aux->produto.preco);
     aux = aux->prox;
@@ -63,23 +62,23 @@ void mostrarElementosDaLista(tipoLista *L) {
 }
 
 
-tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){ // (não otimizado)
-  while(l.cabeca){
-    if( !strcmp(l.cabeca->produto.nome, nomeElemento)  )
-      return l.cabeca;
+tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){ // (nÃ£o otimizado)
+  while(l.prim){
+    if( !strcmp(l.prim->produto.nome, nomeElemento)  )
+      return l.prim;
     
-    l.cabeca = l.cabeca->prox;
+    l.prim = l.prim->prox;
   }  
   return NULL; // elemento NAO encontrado.
 }
 
 
 int removerElementoDaLista(tipoLista *L, char produto[]){
-  tipoNo *anterior = NULL, *atual = L->cabeca;
+  tipoNo *anterior = NULL, *atual = L->prim;
 
   while(atual){
     if( !strcmp(atual->produto.nome, produto) ){
-      if(!anterior) L->cabeca = atual->prox;
+      if(!anterior) L->prim = atual->prox;
       else  anterior->prox = atual->prox;
       free(atual);
       return 1;
@@ -93,14 +92,14 @@ int removerElementoDaLista(tipoLista *L, char produto[]){
 
 
 void removerElementoDaPosicao(int k, tipoLista *l){
-  tipoNo *anterior = NULL, *atual = l->cabeca;
-  // atual 'anda' até ser o elemento que será removido
-  for(; (atual) && (k>0); k--){
+  tipoNo *anterior = NULL, *atual = l->prim;
+  // atual 'anda' atÃ© ser o elemento que serÃ¡ removido ()
+  for(; (k>0) && (atual); k--){
     if(k != 1){
       anterior = atual;
       atual    = atual->prox;
     }else{ 
-      if(!anterior) l->cabeca = atual->prox;
+      if(!anterior) l->prim = atual->prox;
       else     anterior->prox = atual->prox;
       free(atual);
     }
@@ -108,24 +107,42 @@ void removerElementoDaPosicao(int k, tipoLista *l){
 }
 
 
-void removerElementoDaPosicao2(int k, tipoLista *l){ 
-  tipoNo *anterior = l->cabeca, *proximo = NULL;
-  
-  if((k == 1) && (anterior)){
-    l->cabeca = anterior->prox;
-    free(anterior);
+void removerElementoDaPosicao1(int k, tipoLista *l){
+  tipoNo *anterior = NULL, *atual = l->prim;
+  // atual 'anda' ate ser o elemento que sera removido:
+  for(; (k>1) && (atual); k--){
+    anterior = atual;
+    atual    = atual->prox;
   }
-  else{ // anterior 'anda' até ser o elemento antes do que será removido (k=1)
-    for(; (anterior->prox) && (k>2); k--) anterior = anterior->prox;
-    if(anterior != l->cabeca){
-      proximo        = anterior->prox;
-      anterior->prox = proximo->prox;
-      free(proximo);
-    }
-  }  
+  if((k>0) && (atual)){
+    if(!anterior) l->prim = atual->prox;
+    else  anterior->prox = atual->prox;
+    free(atual);
+  }
 }
 
 
+void concatenarListas(tipoLista *A, tipoLista *B){
+  tipoNo *aux;
+  if(B){
+    aux = A->prim;
+    if(!aux) A->prim = B->prim;
+    else{
+      while(aux->prox) aux = aux->prox;
+      aux->prox = B->prim;
+    }
+    B->prim = NULL;    
+  }
+}
+
+
+void apagarLista(tipoLista *l){
+  unsigned k=1;
+  tipoNo *aux;
+
+  for(; l->prim; k++)
+    removerElementoDaPosicao(k, l);  
+}
 
 
 
@@ -137,8 +154,8 @@ int main() {
 
   tipoProduto comida, limpeza, corpo;
   strcpy(comida.nome, "Banana");  comida.preco = 2.57;
-  strcpy(limpeza.nome, "SabaoP"); limpeza.preco = 5.34;
-  strcpy(corpo.nome, "Toalha");   corpo.preco = 8.24;
+  strcpy(limpeza.nome, "SabaoP"); limpeza.preco= 5.34;
+  strcpy(corpo.nome, "Toalha");   corpo.preco  = 8.24;
 
   printf("\n>> Inserindo e Exibindo: \n");
   inserirNoFinalDaLista(&lista, comida);   // 2o
@@ -165,15 +182,14 @@ int main() {
 
   int pos;
   printf("\n>> Removendo da Posicao 'pos' e Exibindo: \n");
-  while(lista.cabeca){
+  while(lista.prim){
     printf(">> Posicao do elemento a remover: ");
     scanf("%d",&pos);
-    removerElementoDaPosicao2(pos, &lista);
+    removerElementoDaPosicao(pos, &lista);
 
     printf("\n>> Lista Atualizada: \n");
-    (lista.cabeca) ? mostrarElementosDaLista(&lista): printf("<vazia>\n");
+    (lista.prim) ? mostrarElementosDaLista(&lista): printf("<vazia>\n");
   }
   printf("\n");
-  
 
 }
