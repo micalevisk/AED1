@@ -137,10 +137,8 @@ void concatenarListas(tipoLista *A, tipoLista *B){
 
 
 void apagarLista(tipoLista *l){
-  unsigned k=1;
-
-  for(; l->prim; k++)
-    removerElementoDaPosicao(k, l);  
+  while(l->prim)
+    removerElementoDaPosicao(1, l);  
 }
 
 
