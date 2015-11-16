@@ -109,14 +109,17 @@ void removerElementoDaPosicao(int k, tipoLista *l){
 
 void removerElementoDaPosicao1(int k, tipoLista *l){
   tipoNo *anterior = NULL, *atual = l->prim;
-  // atual 'anda' ate ser o elemento que sera removido:
+  // "atual" 'anda' até ser o elemento que será removido.
+  // "anterior" será o elemento anterior ao "atual".
   for(; (k>1) && (atual); k--){
     anterior = atual;
     atual    = atual->prox;
   }
+  
   if((k>0) && (atual)){
-    if(!anterior) l->prim = atual->prox;
-    else  anterior->prox = atual->prox;
+    if(!anterior) l->prim = atual->prox; // Caso seja a remoção do primeiro elemento da lista.
+    else   anterior->prox = atual->prox; // O próximo elemento anterior ao que será removido
+                                         // altera para o próximo do elemento que será removido.
     free(atual);
   }
 }
