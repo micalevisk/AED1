@@ -43,7 +43,7 @@ tipoNo* haElementosNaFila(tipoFila *p){
 }
 
 
-tipoDado* removerDaFila(tipoFila *p){ // remove sempre o que esta na vez (primeiro)[fila nao vazia]
+tipoDado removerDaFila(tipoFila *p){ // remove sempre o que esta na vez (primeiro)[fila nao vazia]
   tipoNo *aux   = p->prim;
   tipoDado temp = aux->dado;
 
