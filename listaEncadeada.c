@@ -4,7 +4,7 @@
 
 #include <time.h>
 
-typedef struct{             // informações sobre o elemento
+typedef struct{             // informacoes sobre o elemento
   char nome[10];
   float preco;
 } tipoProduto;
@@ -14,7 +14,7 @@ typedef  struct tipoNo{     // elemento da lista
   struct tipoNo *prox;
 } tipoNo;
 
-typedef struct{             // guarda o endereço do primeiro da lista
+typedef struct{             // guarda o endereco do primeiro da lista
   tipoNo *prim;
 } tipoLista;
 
@@ -44,7 +44,7 @@ void inserirNoFinalDaLista(tipoLista *l, tipoProduto elemento) {
     novo->produto = elemento;
     novo->prox    = NULL;
 
-    if(!aux) l->prim = novo; // para lista vazia: o novo elemento será o cabeça
+    if(!aux) l->prim = novo; // para lista vazia: o novo elemento sera o primeiro
     else{
       while(aux->prox) aux = aux->prox;
       aux->prox = novo;
@@ -62,7 +62,7 @@ void mostrarElementosDaLista(tipoLista *L) {
 }
 
 
-tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){ // (não otimizado)
+tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){ // (nao otimizado)
   while(l.prim){
     if( !strcmp(l.prim->produto.nome, nomeElemento)  )
       return l.prim;
@@ -109,17 +109,17 @@ void removerElementoDaPosicao(int k, tipoLista *l){
 
 void removerElementoDaPosicao1(int k, tipoLista *l){
   tipoNo *anterior = NULL, *atual = l->prim;
-  // "atual" 'anda' até ser o elemento que será removido.
-  // "anterior" será o elemento anterior ao "atual".
+  // "atual" 'anda' ate ser o elemento que sera removido.
+  // "anterior" sera o elemento anterior ao "atual".
   for(; (k>1) && (atual); k--){
     anterior = atual;
     atual    = atual->prox;
   }
   
   if((k>0) && (atual)){
-    if(!anterior) l->prim = atual->prox; // Caso seja a remoção do primeiro elemento da lista.
-    else   anterior->prox = atual->prox; // O próximo elemento anterior ao que será removido
-                                         // altera para o próximo do elemento que será removido.
+    if(!anterior) l->prim = atual->prox; // Caso seja a remocao do primeiro elemento da lista.
+    else   anterior->prox = atual->prox; // O proximo elemento anterior ao que sera removido
+                                         // altera para o proximo do elemento que sera removido.
     free(atual);
   }
 }
