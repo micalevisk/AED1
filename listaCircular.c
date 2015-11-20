@@ -28,8 +28,10 @@ void inserirNaListaCircular(tipoListaCircular *a, tipoDado elemento){ // insere 
 
   if(aux){
     aux->dado = elemento;
-    if(!temp) a->atual = aux; // lista vazia
-    aux->prox = a->atual->prox;
+    
+    if(!temp) a->atual = aux;       
+    else aux->prox = temp->prox;
+    
     a->atual->prox = aux;    
   }
 }
@@ -84,9 +86,9 @@ int main(){
 
   printf("\n>> Inserindo elemtos: \n");
   inserirNaListaCircular(&lista, d1); // atual
-  inserirNaListaCircular(&lista, d2);
-  inserirNaListaCircular(&lista, d3);
-  inserirNaListaCircular(&lista, d3);
+  inserirNaListaCircular(&lista, d2); 
+  inserirNaListaCircular(&lista, d3); 
+  inserirNaListaCircular(&lista, d3); 
 	
   printf("\n>> Mostrando elementos: \n");
   mostrarElementosDaListaCircular(&lista);
