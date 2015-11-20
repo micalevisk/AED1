@@ -47,7 +47,7 @@ tipoDado removerDaFila(tipoFila *p){ // remove sempre o que esta na vez (primeir
   tipoNo *aux   = p->prim;
   tipoDado temp = aux->dado;
 
-  if(!aux) p->ult = NULL; // verifica se a fila tinha apenas 1 elemento
+  if(!aux->prox) p->ult = NULL; // verifica se a fila tinha apenas 1 elemento
   p->prim = aux->prox;
   free(aux);
 
