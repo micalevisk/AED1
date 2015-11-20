@@ -45,7 +45,7 @@ tipoNo* haElementosNaListaCircular(tipoListaCircular *a){
 // [lista nunca vazia]
 tipoDado removerDaListaCircular(tipoListaCircular *a){ // remove o sucessor de 'atual'
   tipoNo *aux    = a->atual;
-  tipoNo *proximo= aux->prox;;
+  tipoNo *proximo= aux->prox;
   tipoDado temp  = proximo->dado;
 
   // para lista de 1 elemento
@@ -69,6 +69,24 @@ void mostrarElementosDaListaCircular(tipoListaCircular *a){
       aux = aux->prox;
     }while(aux != temp);
   }
+}
+
+
+int atualizarAtual(tipoListaCircular *a, int valor){
+  tipoNo *aux = a->atual;
+  tipoNo *temp= aux;
+
+  if(aux){
+    aux = aux->prox;
+    do{
+      if((aux->dado.valor) == valor){
+	a->atual = aux;
+	return 1;
+      }
+      aux = aux->prox;
+    }while(aux != temp);
+
+    return 0;
 }
 
 
