@@ -93,7 +93,7 @@ int removerElementoDaLista(tipoLista *L, char produto[]){
 
 void removerElementoDaPosicao(int k, tipoLista *l){
   tipoNo *anterior = NULL, *atual = l->prim;
-  // atual 'anda' até ser o elemento que será removido ()
+  // atual 'anda' ate ser o elemento que sera removido 
   for(; (k>0) && (atual); k--){
     if(k != 1){
       anterior = atual;
@@ -124,6 +124,28 @@ void removerElementoDaPosicao1(int k, tipoLista *l){
   }
 }
 
+
+void removerElementoDaPosicao2(int k, tipoLista *l){
+  tipoNo *anterior = l->prim, *proximo;
+
+  if((k>0) && (anterior)){ 
+    
+    for(; (k>2) && (anterior->prox); k--) anterior = anterior->prox;
+    proximo = anterior->prox;
+
+    if(k==1){ 
+      l->prim = proximo;
+      free(anterior);
+    }
+    else if(proximo){ 
+      anterior->prox = proximo->prox;
+      free(proximo);      
+    }
+
+  }
+}
+  
+  
 
 void concatenarListas(tipoLista *A, tipoLista *B){
   tipoNo *aux;
@@ -158,12 +180,13 @@ int main() {
   strcpy(corpo.nome, "Toalha");   corpo.preco  = 8.24;
 
   printf("\n>> Inserindo e Exibindo: \n");
-  inserirNoFinalDaLista(&lista, comida);   // 2o
+  inserirNoFinalDaLista(&lista, comida);   // 4o
   inserirNoFinalDaLista(&lista, limpeza);  // 3o
+  inserirNoInicioDaLista(&lista, corpo);   // 2o
   inserirNoInicioDaLista(&lista, corpo);   // 1o
   mostrarElementosDaLista(&lista);
   printf("\n");
-
+  
   printf("\n>> Buscando e Retornando Resultado: \n");
   tipoNo *elemento = buscarElementoNaLista(lista, "Toalha");
   if(elemento){
@@ -179,13 +202,12 @@ int main() {
                                                printf(">> Produto nao encontrado!");
   printf("\n");
 
-
   int pos;
   printf("\n>> Removendo da Posicao 'pos' e Exibindo: \n");
   while(lista.prim){
     printf(">> Posicao do elemento a remover: ");
     scanf("%d",&pos);
-    removerElementoDaPosicao(pos, &lista);
+    removerElementoDaPosicao2(pos, &lista);
 
     printf("\n>> Lista Atualizada: \n");
     (lista.prim) ? mostrarElementosDaLista(&lista): printf("<vazia>\n");
