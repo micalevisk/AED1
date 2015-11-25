@@ -1,14 +1,15 @@
 // ALUNO    : Micael Levi L. C.
 // MATRÍCULA: 21554923
 // TURMA    : CB01
-/* Correção: Mikael Souza 18/10/15 */
+// CORREÇÃO : Mikael Souza 18/10/15 
 
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #define N 4
 
-// 1
+
+// (1)
 int fatorialDe(int n){
   int fatorial=1;
     
@@ -21,7 +22,8 @@ int fatorialDe(int n){
 }
 
 
-// 2
+
+// (2)
 void modificarVetor(int v[], int n){
   int i=0;
     
@@ -35,7 +37,8 @@ void modificarVetor(int v[], int n){
 }
 
 
-// 3
+
+// (3)
 void inverterPosicoesVetor(int v[], int n){
   int i, j;
   int aux;
@@ -48,7 +51,8 @@ void inverterPosicoesVetor(int v[], int n){
 }
 
 
-// 4
+
+// (4)
 int textoVerdadeiro(char texto[]){
   int i=0, limite = strlen(texto) - 3;
     
@@ -63,7 +67,8 @@ int textoVerdadeiro(char texto[]){
 }
 
 
-// 5
+
+// (5)
 int verSeEstaEmOrdemCrescente(int v[], int n){
   int i=0;
     
@@ -74,7 +79,8 @@ int verSeEstaEmOrdemCrescente(int v[], int n){
 }
 
 
-//6
+
+// (6)
 void insertionSort(int v[], int n){
   int i = 1, j;
   int pivot;
@@ -93,7 +99,8 @@ void insertionSort(int v[], int n){
 }
 
 
-// 7
+
+// (7)
 int somarOsQuadradosAnterioresDe(int inteiroN){
   int acumulador=0;
     
@@ -105,7 +112,8 @@ int somarOsQuadradosAnterioresDe(int inteiroN){
 }
 
 
-// 8
+
+// (8)
 int letraNoNome(char nome[], char letra){
   int i;
   int vezesQueAparece = 0;
@@ -123,7 +131,8 @@ int letraNoNome(char nome[], char letra){
 }
 
 
-// 9
+
+// (9)
 int verSeEhPalindromo(char nome[]){
   int tamanho = strlen(nome);
   int i=0, j=tamanho - 1;
@@ -137,7 +146,8 @@ int verSeEhPalindromo(char nome[]){
 }
 
 
-// 10
+
+// (10)
 int verSeRepete_binarySearch(int x, int v[], int n){
   int inicio=0, fim = n-1, meio;
     
@@ -157,7 +167,8 @@ int verSeRepete_binarySearch(int x, int v[], int n){
 }
 
 
-// 11
+
+// (11)
 void substituirElementos(int v[], int n, int delta){
   int i=0;
   for(; i<n; i++)
@@ -165,7 +176,8 @@ void substituirElementos(int v[], int n, int delta){
 }
 
 
-//12
+
+// (12)
 void substituirElementos2(int v[], int n){
   int i, aux, aux2;
     
@@ -181,7 +193,8 @@ void substituirElementos2(int v[], int n){
 }
 
 
-// 13
+
+// (13)
 void inverterSubstituicoes2(int v[], int n){
   int i=1;
   for(; i<n; i++ )
@@ -189,7 +202,8 @@ void inverterSubstituicoes2(int v[], int n){
 }
 
 
-// 14 -
+
+// (14) 
 // a) R: 40, 12, 3
 // b) R: 40, 90, 50, 55
  
@@ -209,7 +223,8 @@ void inverterSubstituicoes2(int v[], int n){
 /// --> retorna 6
 
 
-// 15
+
+// (15)
 int matrizQuadrada(int matriz[][N], int K){
   int i=0, j;
   int vezesQueAparece=0;
@@ -225,7 +240,8 @@ int matrizQuadrada(int matriz[][N], int K){
 }
 
 
-// 16
+
+// (16)
 int maiorElementoDaMatrizQuadrada(int matriz[N][N]){
   int i=1, j;
   int maior = matriz[0][0];
@@ -240,7 +256,8 @@ int maiorElementoDaMatrizQuadrada(int matriz[N][N]){
 }
 
 
-// 17
+
+// (17)
 int somaDiagonalSecundaria(int matriz[N][N]){
   int i;
   int soma = 0;
@@ -252,7 +269,8 @@ int somaDiagonalSecundaria(int matriz[N][N]){
 }
 
 
-// 18
+
+// (18)
 float desvioPadraoDe(int v[], int n){
   int i;
   float somaDosQuadradosDasDifrencas=0;
@@ -269,6 +287,7 @@ float desvioPadraoDe(int v[], int n){
     
   return sqrt(variancia);
 }
+
 
 
 /* EXTRAS: ------------------------------------------------------------------ */
@@ -408,3 +427,5 @@ int buscarLicenca(tipoLicenca *v[], int n, Data d){
   }    
   return -1;
 }
+
+				/* written with GNU Emacs editor */
