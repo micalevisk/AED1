@@ -367,7 +367,7 @@ void quickSortInterno(tipoDados v[], int inicio, int fim){
   }
 }
 
-void quickSelectionSort(int v[], int n){
+void quickInsertionSort(int v[], int n){
   quickSortInterno(v, 0, n-1);
 }
 
