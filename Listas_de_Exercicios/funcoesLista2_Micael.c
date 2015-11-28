@@ -456,61 +456,55 @@ void quickSort(tipoDados v[], int n){
 
 
 /// (13)
-
-// Trocar os valores de 'a' com 'b' e vice-versa.
 void trocar(tipoDados* a, tipoDados* b){
-	tipoDados aux = *a;
-	*a = *b;
-	*b = aux;
+  tipoDados aux = *a;
+  *a = *b;
+  *b = aux;
 }
 
-// Define o último como pivô e coloca os elementos menores que ele no seu lado esquerdo.
 int particionar(tipoDados v[], int inicio, int fim){
-	int pivot = v[fim].id; 
-	int i = inicio-1; 	
-	int j = inicio;
+  tipoDados pivot = v[fim];
+  int i = inicio-1;
+  int j = inicio;
 
-	for(; j <= fim-1; j++){
-		if(v[j].id <= pivot){
-			i++; 								
-			if(i != j) trocar(&v[i], &v[j]); 
-		}
-	}
+  for(; j <= fim-1; j++){
+    if(v[j].id <= pivot.id){
+      i++;
+      if(i != j) trocar(&v[i], &v[j]);
+    }
+  }
 
-	trocar(&v[i+1], &v[fim]); 
+  trocar(&v[i+1], &v[fim]);
 
-	return (i + 1); // Posição em que o pivô ficou.
+  return (i + 1);
 }
 
-// Ordenar por quickSortvetor no intervalo [inicio;fim] 
 void quickSortInterno(tipoDados v[], int inicio, int fim){
-	if(fim > inicio){
-		int p = particionar(v, inicio, fim);		
-		quickSortInterno(v, inicio, p-1);
-		quickSortInterno(v, p+1, fim); 
-	}
+  if(fim > inicio){
+    int p = particionar(v, inicio, fim);
+    quickSortInterno(v, inicio, p-1);
+    quickSortInterno(v, p+1, fim);
+  }
 }
 
-// Determinar o vetor onde 'p' fica entre elementos maiores e menores que ele.
-void quickSortParcial(tipoDados v[], int inicio, int fim, int k){	
-	if(fim > inicio){
-		int p = particionar(v, inicio, fim);
-		int tamanhoEsquerdo = p; // Tamanho do "vetor" do lado esquerdo de 'p'.
-		
-		if(tamanhoEsquerdo == 0) quickSortParcial(v, p, fim, k);
-		else if(tamanhoEsquerdo+1 > k) quickSortParcial(v, 0, p-1, k);
-		else if(tamanhoEsquerdo+1 < k) quickSortParcial(v, 0, p+1, k);
-		else if(tamanhoEsquerdo+1 == k) quickSortInterno(v, 0, p);   	
-	}
+void quickSortParcial(tipoDados v[], int inicio, int fim, int k){
+  if(fim > inicio){
+    int p = particionar(v, inicio, fim);
+
+    if(p == 0)      quickSortParcial(v, p+1, fim, k);
+    else if(p > k)  quickSortParcial(v, 0,   p-1, k);
+    else if(p < k)  quickSortParcial(v, 0,   p+1, k);
+    else if(p == k) quickSortInterno(v, 0, p-1);
+  }
 }
 
 void quickSort(tipoDados v[], int n, int k){
-    if(k>0 && k<n){
-        quickSortParcial(v, 0, n-1, k);
-        int i=0;
-        printf("\n>> Os %d primeiros (em ordem crescente): ",k);
-        for(; i < k; i++) v[i];
-    }
+  if(k < n){
+    quickSortParcial(v, 0, n-1, k);
+    int i;
+    printf(">> Os k menores 'id' (em ordem) sao: ");
+    for(i=0; i < k; i++) printf("%d, ", v[i].id);
+  }
 }
 
 
@@ -539,7 +533,7 @@ float* gerarVetorComRegistros(tipoListaBinaria *p){
     if(aux->registro.alfa > 2.3) nElementosValidos++;
 
   if(nElementosValidos){
-    // 2 - Reverservar um espaço para o vetor:
+    // 2 - Reservar um espaço para o vetor:
     vetor = (float*) malloc(sizeof(float)*(nElementosValidos+1));
 
     // 3 - Inserir os elementos no vetor:
