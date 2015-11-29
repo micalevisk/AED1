@@ -272,11 +272,10 @@ typedef struct tipoLista{
 
 void transferirListaEncadeada(tipoLista *p, tipoNo v[]){
   tipoNo *aux;
-  unsigned i=0;
 
-  for(; p->prim; i++){
+  for(; p->prim; v++){
     aux  = p->prim;
-    v[i] = *aux;
+    *v = *aux;
 
     p->prim = aux->prox;
     free(aux);
@@ -530,7 +529,7 @@ tipoRegistroBinario* gerarVetorComRegistros(tipoListaBinaria *p){
 
     for(aux=p->primeiro; aux; aux=aux->prox)
       if(aux->registro.alfa > 2.3){
-	vetor[i] = aux->registro.alfa;
+	vetor[i] = aux->registro;
 	i++;
       }
   }
