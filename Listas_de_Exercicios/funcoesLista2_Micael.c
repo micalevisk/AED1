@@ -232,30 +232,30 @@ typedef struct{
 }tipoListaEncadeadaSimples;
 
 int verSimetriaDaListaSimples(tipoListaEncadeadaSimples *p){
-    tipoNoSimples *aux = p->primeiro, *fixado = aux, *aux2;	  
-    unsigned nElementos=0, limite, iSimetrico;		          
+  tipoNoSimples *aux = p->primeiro, *fixado = aux, *aux2;	  
+  unsigned nElementos=0, limite, iSimetrico;		          
 
-    if((!aux) || (!aux->prox)) return 0;
+  if((!aux) || (!aux->prox)) return 0;
 
-    for(; aux; nElementos++, aux = aux->prox); 	
+  for(; aux; nElementos++, aux = aux->prox); 	
 
-    limite = nElementos/2;						
-    (nElementos % 2 == 0) ? (iSimetrico=limite+1) : (iSimetrico=limite+2);
+  limite = nElementos/2;						
+  (nElementos % 2 == 0) ? (iSimetrico=limite+1) : (iSimetrico=limite+2);
 
-    for(aux=fixado; iSimetrico > 1; aux=aux->prox, iSimetrico--);
-    aux2 = aux;                                
+  for(aux=fixado; iSimetrico > 1; aux=aux->prox, iSimetrico--);
+  aux2 = aux;                                
 
-    do{
-        for(aux=aux2; aux; aux=aux->prox)
-            if(aux->valor == fixado->valor) break; 
+  do{
+    for(aux=aux2; aux; aux=aux->prox)
+      if(aux->valor == fixado->valor) break; 
 
-        if(!aux) return 0;
+    if(!aux) return 0;
 
-        fixado = fixado->prox;
-        limite--;
-    }while( limite>0 );
+    fixado = fixado->prox;
+    limite--;
+  }while( limite>0 );
 
-    return 1;
+  return 1;
 }
 
 
@@ -517,16 +517,16 @@ typedef struct{
 }tipoListaBinaria;
 
 
-float* gerarVetorComRegistros(tipoListaBinaria *p){
+tipoRegistroBinario* gerarVetorComRegistros(tipoListaBinaria *p){
   tipoArquivoBinario *aux;
-  float *vetor = NULL;
+  tipoRegistroBinario *vetor = NULL;
   unsigned nElementosValidos=0, i=0;
 
   for(aux=p->primeiro; aux; aux=aux->prox)
     if(aux->registro.alfa > 2.3) nElementosValidos++;
 
   if(nElementosValidos){
-    vetor = (float*) malloc(sizeof(float)*(nElementosValidos+1));
+    vetor = (tipoRegistroBinario*) malloc(sizeof(tipoRegistroBinario)*nElementosValidos);
 
     for(aux=p->primeiro; aux; aux=aux->prox)
       if(aux->registro.alfa > 2.3){
@@ -633,4 +633,4 @@ void inserir(tipoLista *L, int d){
   L->prim   = aux;
 }
 
-				/* written with GNU Emacs editor */
+/* written with GNU Emacs editor */
