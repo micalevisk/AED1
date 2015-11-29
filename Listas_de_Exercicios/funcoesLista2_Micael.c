@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Tipo em comum entre as questões.
+
 typedef struct tipoDados{
   char nome[20];
   char endereco[40];
@@ -30,7 +30,7 @@ void criarPilha(tipoPilha *t){
   t->topo = NULL;
 }
 
-void inserirNaPilha(tipoPilha *t, tipoDados elemento){ // Insere no topo (= início numa lista simplesmente encadeada).
+void inserirNaPilha(tipoPilha *t, tipoDados elemento){
   tipoNo *aux = (tipoNo*) malloc(sizeof(tipoNo));
   aux->dados = elemento;
 
@@ -38,7 +38,7 @@ void inserirNaPilha(tipoPilha *t, tipoDados elemento){ // Insere no topo (= iní
   t->topo   = aux;
 }
 
-tipoDados removerDaPilha(tipoPilha *t){ // Admitindo uma pilha nunca vazia.
+tipoDados removerDaPilha(tipoPilha *t){ 
   tipoNo *aux    = t->topo;
   tipoDados temp = aux->dados;
 
@@ -47,7 +47,7 @@ tipoDados removerDaPilha(tipoPilha *t){ // Admitindo uma pilha nunca vazia.
   t->topo = aux->prox;
   free(aux);
 
-  return temp; // Retorna os dados do elemento removido.
+  return temp; 
 }
 
 
@@ -116,7 +116,7 @@ void inserirNaListaCircular(tipoListaCircular *a, tipoDados elemento){
   a->atual->prox = aux;
 }
 
-tipoDados removerDaListaCircular(tipoListaCircular *a){ // Admitindo uma lista nunca vazia.
+tipoDados removerDaListaCircular(tipoListaCircular *a){ 
   tipoNo *aux     = a->atual;
   tipoNo *proximo = aux->prox;
   tipoDados temp  = proximo->dados;
@@ -137,13 +137,13 @@ int atualizarAtualDaListaCircular(tipoListaCircular *a, int idNovo){
     do{
       if((aux->dados.id) == idNovo){
 	a->atual = aux;
-	return 1; // Encontrou o novo 'atual' e ele é diferente do 'atual' antigo.
+	return 1;
       }
       aux = aux->prox;
     }while(aux != temp);
   }
 
-  return 0; // Não foi atualizado.
+  return 0;
 }
 
 
@@ -185,7 +185,7 @@ void inserirVetorNaPilha(tipoPilha *t, int v[], int k){
   int i = 0;
   tipoNo *aux;
 
-  if(!t->topo){ // A pilha deve estar vazia.
+  if(!t->topo){ 
     for(; i < k; i++){
       aux = (tipoNo*) malloc(sizeof(tipoNo));
       aux->dado = v[i];
@@ -208,16 +208,14 @@ void removerElementoDaPosicao(int k, tipoListaEncadeada *p){
   tipoNo *anterior = NULL;
   tipoNo *atual    = p->prim;
     
-  // 'atual' "anda" ate ser o elemento que sera removido.
-  // 'anterior' será o elemento anterior ao 'atual'.
   for(; (k>1) && (atual); k--){
     anterior = atual;
     atual    = atual->prox;
   }
 
   if((k>0) && (atual)){
-    if(!anterior) p->prim = atual->prox; // Caso seja a remoção do primeiro elemento da lista.
-    else   anterior->prox = atual->prox; // O próximo elemento de 'anterior' altera para o próximo do elemento que será removido.
+    if(!anterior) p->prim = atual->prox; 
+    else   anterior->prox = atual->prox;
     free(atual);
   }
 }
@@ -233,32 +231,31 @@ typedef struct{
   tipoNoSimples *primeiro;
 }tipoListaEncadeadaSimples;
 
-
 int verSimetriaDaListaSimples(tipoListaEncadeadaSimples *p){
-  tipoNoSimples *aux = p->primeiro, *fixado = aux, *aux2;  // 3 ponteiros.
-  unsigned nElementos=0, limite, iSimetrico, i=1;         // 4 inteiros sem sinal.
+    tipoNoSimples *aux = p->primeiro, *fixado = aux, *aux2;	  
+    unsigned nElementos=0, limite, iSimetrico;		          
 
-  if((!aux) || (!aux->prox)) return 0;
+    if((!aux) || (!aux->prox)) return 0;
 
-  for(; aux; nElementos++, aux = aux->prox);  // Contando o número de elementos da lista.
+    for(; aux; nElementos++, aux = aux->prox); 	
 
-  limite = nElementos/2;                      // Posição do último elemento da primeira metade.
-  (nElementos % 2 == 0) ? (iSimetrico=limite+1) : (iSimetrico=limite+2);
+    limite = nElementos/2;						
+    (nElementos % 2 == 0) ? (iSimetrico=limite+1) : (iSimetrico=limite+2);
 
-  for(aux=fixado; i != iSimetrico; aux=aux->prox, i++);
-  aux2 = aux;                                 // Fixando o primeiro elemento da segunda metade da lista.
+    for(aux=fixado; iSimetrico > 1; aux=aux->prox, iSimetrico--);
+    aux2 = aux;                                
 
-  do{
-    for(aux=aux2; aux; aux=aux->prox)
-      if(aux->valor == fixado->valor) break; // Sair do laço for.
+    do{
+        for(aux=aux2; aux; aux=aux->prox)
+            if(aux->valor == fixado->valor) break; 
 
-    if(!aux) return 0;
+        if(!aux) return 0;
 
-    fixado = fixado->prox;
-    limite--;
-  }while(limite>0);
+        fixado = fixado->prox;
+        limite--;
+    }while( limite>0 );
 
-  return 1;
+    return 1;
 }
 
 
@@ -310,14 +307,13 @@ void mostrarElementosDaFilaInverso(tipoFila p){
 
 
 /// (10)
-// Troca o valor da variável 'a' para 'b' e vice-versa.
+
 void trocar(tipoDados* a, tipoDados* b){
   tipoDados aux = *a;
   *a = *b;
   *b = aux;
 }
 
-// Ordenação por Inserção pelo campo 'nome'.
 void insertionSort(tipoDados v[], int posInicial, int posFinal){
   int i, j;
   tipoDados pivot;
@@ -335,7 +331,7 @@ void insertionSort(tipoDados v[], int posInicial, int posFinal){
 
 int particionar(tipoDados v[], int inicio, int fim){
   tipoDados pivot=v[fim];
-  int i=inicio-1;          // Posição do menor elemento.
+  int i=inicio-1;     
   int j;
 
   for(j=inicio; j <= fim-1; j++){
@@ -353,21 +349,19 @@ int particionar(tipoDados v[], int inicio, int fim){
 void quickSortInterno(tipoDados v[], int inicio, int fim){
   if(fim > inicio){
     int tamanho;
-    int p = particionar(v, inicio, fim);    // Posição do elemento divisor.
+    int p = particionar(v, inicio, fim);   
 
-    // Para "vetor" do lado esquerdo da posição 'p'.
-    tamanho = (p-1 - inicio+1); // Tamanho do vetor formado pelos elementos do lado esquerdo de 'p'.
+    tamanho = (p-1 - inicio+1); 
     if(tamanho >= 10) quickSortInterno(v, inicio, p-1);
     else              insertionSort(v, inicio, p-1);
 
-    // Para "vetor" do lado direito da posição 'p'.
-    tamanho = (fim - p+1);      // Tamanho do vetor formado pelos elementos do lado direito de 'p'.
+    tamanho = (fim - p+1);      
     if(tamanho >= 10) quickSortInterno(v, p+1, fim);
     else              insertionSort(v, p+1, fim);
   }
 }
 
-void quickInsertionSort(int v[], int n){
+void quickInsertionSort(tipoDados v[], int n){
   quickSortInterno(v, 0, n-1);
 }
 
@@ -380,7 +374,7 @@ void intercalar(tipoDados v[], tipoDados vaux[], int inicio, int fim, int meio){
   int k = inicio;
 
   while((i <= meio) && (j <= fim)){
-    if(strcmp(v[i].nome, v[j].nome) < 0){ // Se v[i] vem antes de v[j] no alfabeto.
+    if(strcmp(v[i].nome, v[j].nome) < 0){ 
       vaux[k] = v[i];
       i++;
     }
@@ -410,9 +404,9 @@ void mergeSortInterno(tipoDados v[], tipoDados vaux[], int inicio, int fim){
   int meio;
   if(inicio < fim){
     meio = (inicio+fim)/2;
-    mergeSortInterno(v, vaux, inicio, meio); // Ordenar primeira metade.
-    mergeSortInterno(v, vaux, meio+1, fim);  // Ordenar segunda metade.
-    intercalar(v, vaux, inicio, fim, meio);  // Intercalar as metades ordenadas.
+    mergeSortInterno(v, vaux, inicio, meio); 
+    mergeSortInterno(v, vaux, meio+1, fim); 
+    intercalar(v, vaux, inicio, fim, meio);  
   }
 }
 
@@ -528,15 +522,12 @@ float* gerarVetorComRegistros(tipoListaBinaria *p){
   float *vetor = NULL;
   unsigned nElementosValidos=0, i=0;
 
-  // 1 - Contar a quantidade de elementos da lista que entrarão no vetor:
   for(aux=p->primeiro; aux; aux=aux->prox)
     if(aux->registro.alfa > 2.3) nElementosValidos++;
 
   if(nElementosValidos){
-    // 2 - Reservar um espaço para o vetor:
     vetor = (float*) malloc(sizeof(float)*(nElementosValidos+1));
 
-    // 3 - Inserir os elementos no vetor:
     for(aux=p->primeiro; aux; aux=aux->prox)
       if(aux->registro.alfa > 2.3){
 	vetor[i] = aux->registro.alfa;
@@ -544,7 +535,7 @@ float* gerarVetorComRegistros(tipoListaBinaria *p){
       }
   }
 
-  return vetor; // Endereço do primeiro elemento do vetor.
+  return vetor;
 }
 
 
@@ -586,7 +577,7 @@ int estritamenteCrescente(tipoLista *p){
   int valAnterior;
   tipoNo *atual = p->prim;
 
-  if((!atual) || (!atual->prox)) return 1; // Se a lista estiver vazia ou tem 1 elemento então é estritamente crescente.
+  if((!atual) || (!atual->prox)) return 1;
 
   valAnterior = atual->dado;
   atual       = atual->prox;
@@ -624,7 +615,7 @@ void destruirListaEncadeada(tipoLista *l){
 
 
 
-/// (18) - [TEÓRICA] Função "inserir" Corrigida (foram feitas 3 alterações):
+/// (18) 
 typedef struct tipoNo{
   int dado;
   struct tipoNo *prox;
@@ -632,7 +623,6 @@ typedef struct tipoNo{
 typedef struct tipoLista{
   tipoNo *prim;
 }tipoLista;
-
 
 
 void inserir(tipoLista *L, int d){
