@@ -59,7 +59,7 @@ void mostrarElementosDaPilha(tipoPilha *t){
 }
 
 
-tipoNo* buscarElementoNaPilha(tipoPilha *t, tipoDado elemento){  //buscar por 'valor'
+tipoNo* buscarElementoNaPilha(tipoPilha *t, int elemento){  //buscar por 'valor'
   tipoNo *aux = t->topo;
   while(aux){
     if(aux->dado.valor == elemento) return aux;
