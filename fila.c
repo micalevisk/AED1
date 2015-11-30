@@ -65,7 +65,7 @@ void mostrarElementosDaFila(tipoFila *p){
 }
 
 
-tipoNo* buscarElementoNaFila(tipoFila *p, tipoDado elemento){  //buscar por 'valor'
+tipoNo* buscarElementoNaFila(tipoFila *p, int elemento){  //buscar por 'valor'
   tipoNo *aux = p->prim;
   while(aux){
     if(aux->dado.valor == elemento) return aux;
