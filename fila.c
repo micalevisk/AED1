@@ -73,3 +73,27 @@ tipoNo* buscarElementoNaFila(tipoFila *p, int elemento){  //buscar por 'valor'
   }
   return NULL;  
 } 
+
+
+int inverterFila(tipoFila *p){
+  tipoNo *aux  = p->prim; // Para percorrer a lista.
+  tipoNo *temp = p->prim; // Para fixar o primeiro 'original'.
+  tipoNo *neo  = p->ult;  // Novo nó que é 'inserido' na fila.
+
+  if((!aux) || (aux == neo)) return 0; // Fila vazia ou com apenas 1 nó.
+
+  do{
+    
+    for(aux = temp; aux->prox != neo; aux = aux->prox); // "aux" é o nó anterior ao "neo".
+    neo->prox = aux;
+    neo = aux;
+    
+  }while(aux != temp);
+	
+  neo->prox = NULL;
+  
+  p->prim = p->ult;
+  p->ult  = neo;
+ 
+  return 1;
+}

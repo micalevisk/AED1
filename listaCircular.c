@@ -85,9 +85,35 @@ int atualizarAtual(tipoListaCircular *a, int valor){
       }
       aux = aux->prox;
     }while(aux != temp);
+  }
 
-    return 0;
+  return 0;
 }
+
+
+int inverterListaCircular(tipoListaCircular *a){
+  tipoNo *aux = a->atual;
+  tipoNo *temp= aux;
+  tipoNo *ultimo;
+
+  if(!(aux) || !(aux->prox)) return 0;
+
+  for(ultimo=aux; ultimo->prox != temp; ultimo = ultimo->prox);
+	
+  a->atual = ultimo;
+
+  do{
+
+    for(aux = temp; aux->prox != ultimo; aux = aux->prox);
+    ultimo->prox = aux;
+    ultimo		 = aux;
+
+  }while(aux != temp); // aux == temp == ultimo (ao sair do loop)
+	
+  ultimo->prox = a->atual;	
+  return 1;
+}
+
 
 
 int main(){
@@ -110,14 +136,23 @@ int main(){
 	
   printf("\n>> Mostrando elementos: \n");
   mostrarElementosDaListaCircular(&lista);
-  
-  int loop=0;
-  while(loop>=0){
-    scanf("%d", &loop);
-    printf("\n>> Removendo o proximo de atual e mostrando: \n");
-    if(haElementosNaListaCircular(&lista)) removerDaListaCircular(&lista);
-    else printf("\n <vazia> \n");
-    mostrarElementosDaListaCircular(&lista);
-  }
-  
+  /*  
+      int loop=0;
+      while(loop>=0){
+      scanf("%d", &loop);
+      printf("\n>> Removendo o proximo de atual e mostrando: \n");
+      if(haElementosNaListaCircular(&lista)) removerDaListaCircular(&lista);
+      else printf("\n <vazia> \n");
+      mostrarElementosDaListaCircular(&lista);
+      }
+  */
+
+		
+  printf("\n>> Lista invertida: \n");
+  inverterListaCircular(&lista);
+
+  mostrarElementosDaListaCircular(&lista);
+ 
+
+
 }

@@ -67,3 +67,54 @@ tipoNo* buscarElementoNaPilha(tipoPilha *t, int elemento){  //buscar por 'valor'
   }
   return NULL;
 } 
+
+
+int inverterPilha(tipoPilha *t){
+  tipoNo *aux = t->topo;
+  tipoNo *temp= aux;
+  tipoNo *ultimo;
+
+  if(!(aux) || !(aux->prox)) return 0;
+
+  for(ultimo = aux; ultimo->prox; ultimo = ultimo->prox);
+  t->topo = ultimo;
+
+  do{
+
+    for(aux = temp; aux->prox != ultimo; aux = aux->prox);
+    ultimo->prox = aux;
+    ultimo       = aux;
+
+  }while(aux != temp);
+
+  ultimo->prox = NULL;
+  return 1;
+}
+
+
+
+
+
+int main(){
+
+  tipoDado A, B, C, D;
+  A.valor = 1;
+  B.valor = 2;
+  C.valor = 3;
+  D.valor = 4;
+
+  tipoPilha pilha;
+  criarPilha(&pilha);
+  inserirNaPilha(&pilha, A);
+  inserirNaPilha(&pilha, B);
+  inserirNaPilha(&pilha, C);
+  inserirNaPilha(&pilha, D);
+
+  mostrarElementosDaPilha(&pilha);
+
+  printf("\n\n Invertido: \n");
+  inverterPilha(&pilha);
+
+  mostrarElementosDaPilha(&pilha);
+
+}

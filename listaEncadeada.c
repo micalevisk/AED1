@@ -167,6 +167,31 @@ void apagarLista(tipoLista *l){
 }
 
 
+int inverterListaEncadeada(tipoLista *p){
+  tipoNo *aux  = p->prim;
+  tipoNo *ultimo;
+  tipoNo *temp = aux;
+	
+  for(ultimo = aux; ultimo->prox; ultimo = ultimo->prox); // 'ultimo' é o último nó.
+  if(!(aux) || !(aux->prox)) return 0;
+	
+  p->prim = ultimo;
+
+  do{
+
+    for(aux = temp; aux->prox != ultimo; aux = aux->prox);
+    ultimo->prox = aux;
+    ultimo		 = aux;
+
+  }while(aux != temp);
+	
+  ultimo->prox = NULL;
+
+  return 1;
+}
+
+
+
 
 int main() {
   srand(time(NULL));
@@ -180,10 +205,12 @@ int main() {
   strcpy(corpo.nome, "Toalha");   corpo.preco  = 8.24;
 
   printf("\n>> Inserindo e Exibindo: \n");
-  inserirNoFinalDaLista(&lista, comida);   // 4o
-  inserirNoFinalDaLista(&lista, limpeza);  // 3o
+  inserirNoFinalDaLista(&lista, comida);   // 6o
+  inserirNoFinalDaLista(&lista, limpeza);  // 5o
+  inserirNoInicioDaLista(&lista, corpo);   // 4o
+  inserirNoInicioDaLista(&lista, limpeza); // 3o
   inserirNoInicioDaLista(&lista, corpo);   // 2o
-  inserirNoInicioDaLista(&lista, corpo);   // 1o
+  inserirNoInicioDaLista(&lista, comida);  // 1o
   mostrarElementosDaLista(&lista);
   printf("\n");
   
@@ -199,19 +226,24 @@ int main() {
   
   printf("\n>> Removendo e Exibindo: \n");
   (removerElementoDaLista(&lista, "Banana")) ? mostrarElementosDaLista(&lista) :
-                                               printf(">> Produto nao encontrado!");
+    printf(">> Produto nao encontrado!");
   printf("\n");
 
   int pos;
-  printf("\n>> Removendo da Posicao 'pos' e Exibindo: \n");
-  while(lista.prim){
+  /*
+    printf("\n>> Removendo da Posicao 'pos' e Exibindo: \n");
+    while(lista.prim){
     printf(">> Posicao do elemento a remover: ");
     scanf("%d",&pos);
     removerElementoDaPosicao2(pos, &lista);
 
     printf("\n>> Lista Atualizada: \n");
     (lista.prim) ? mostrarElementosDaLista(&lista): printf("<vazia>\n");
-  }
-  printf("\n");
+    }
+    printf("\n");
+  */
+	
+  inverterListaEncadeada(&lista);
+  mostrarElementosDaLista(&lista);
 
 }
