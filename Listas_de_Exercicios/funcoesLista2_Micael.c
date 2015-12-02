@@ -632,4 +632,107 @@ void inserir(tipoLista *L, int d){
   L->prim   = aux;
 }
 
+
+
+/* EXTRAS (LISTA DE 2014) */
+typedef struct{
+  int matricula;
+  int turma;
+  char CPF[12];
+  char nome[20];
+}tipoAluno;
+
+typedef struct no{
+  tipoAluno al;
+  int linha, coluna;
+  struct no *prox;
+}tipoNo;
+
+typedef struct{
+  tipoNo *prim;
+}tipoLista;
+
+
+/// (14)
+void imprimirNomes(tipoLista *p, int k){ // Imprime somente os nomes que pertencem a turma 'k'.
+  tipoNo *aux = p->prim;
+  tipoAluno corrente;
+
+  for(; aux; aux = aux->prox){
+    corrente = aux->al;
+    if(corrente.turma == k)
+      printf(" nome: %s \n", corrente.nome);
+  }
+}
+
+
+
+/// (15)
+void trocarUltimoComPrimeiro(tipoLista *p){
+  tipoNo *aux = p->prim;
+  tipoNo *primeiro = aux;
+  tipoNo *ultimo   = aux->prox;
+
+  for(; ultimo->prox; ultimo = ultimo->prox) aux = ultimo;
+
+  if(ultimo){	
+    ultimo->prox = primeiro->prox;
+    
+    aux->prox	   = primeiro;
+    primeiro->prox = NULL;
+    p->prim	   = ultimo;
+  }
+}
+
+
+
+/// (16)
+tipoLista* criarListaAPartirDaMatriz(tipoAluno m[][N], int k){
+  tipoLista *l;
+  l->prim = NULL;
+
+  tipoNo* aux;
+  int i, j;
+
+  for(i=0; i < N; i++){
+    for(j=0; j < N; j++){
+      if(m[i][j].turma == k){
+	aux = (tipoNo*) malloc(sizeof(tipoNo)); // Criando o no.
+	aux->al 	= m[i][j];
+	aux->linha 	= i;
+	aux->coluna = j;
+				
+	aux->prox = l->prim; // Inserindo na lista.
+	l->prim    = aux;
+      }
+    }
+  }
+
+  return l;
+}
+
+
+
+/// (17)
+void transferirParaMatriz(tipoAluno m[][N], tipoLista *p){ // Tranferir a lista para a matriz 'm' e destrui-la.
+  tipoNo *aux = p->prim;
+  tipoNo *temp;
+
+  while(aux){
+    temp = aux;
+
+    m[aux->linha][aux->coluna] = aux->al;
+    aux = aux->prox;
+
+    free(temp);
+  }
+  p->prim = aux;
+}
+
+
+
+
+
+
+
 /* written with GNU Emacs editor */
