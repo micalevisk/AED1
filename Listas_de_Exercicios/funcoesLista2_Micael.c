@@ -668,18 +668,17 @@ void imprimirNomes(tipoLista *p, int k){ // Imprime somente os nomes que pertenc
 
 
 /// (15)
-void trocarUltimoComPrimeiro(tipoLista *p){
-  tipoNo *aux = p->prim;
+void moverUltimoParaInicio(tipoLista *p){
+  tipoNo *anterior = p->prim;
   tipoNo *primeiro = aux;
   tipoNo *ultimo   = aux->prox;
 
-  for(; ultimo->prox; ultimo = ultimo->prox) aux = ultimo;
+  for(; ultimo->prox; ultimo = ultimo->prox) anterior = ultimo;
 
   if(ultimo){	
-    ultimo->prox = primeiro->prox;
+    ultimo->prox = primeiro;
     
-    aux->prox	   = primeiro;
-    primeiro->prox = NULL;
+    anterior->prox = NULL;
     p->prim	   = ultimo;
   }
 }
@@ -731,8 +730,4 @@ void transferirParaMatriz(tipoAluno m[][N], tipoLista *p){ // Tranferir a lista 
 
 
 
-
-
-
-
-/* written with GNU Emacs editor */
+			/* written with GNU Emacs editor */
