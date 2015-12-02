@@ -32,7 +32,7 @@ int numeroDeElementosDaLista(tipoLista *p){
 int saoTodosMaiores(tipoLista *p1, tipoLista *p2){
   tipoNo *aux1 = p1->prim;
   tipoNo *aux2 = p2->prim;
-  tipoNo *temp, *fixo;
+  tipoNo *temp;
   int maiorDado;
   
   if((aux1) && (aux2)){
@@ -41,17 +41,15 @@ int saoTodosMaiores(tipoLista *p1, tipoLista *p2){
     aux1 = (aux1->dado > aux2->dado) ? aux1 : aux2;
     if(aux1 == aux2) aux2 = p1->prim;
     
-    fixo = aux2; // Fixando o primeiro da lista que, em tese, tem elementos menores que a outra.
     do{
       maiorDado = aux1->dado;
       
       // 'temp' percorre a lista apontada por 'aux2' a cada verificacao de um elemento de 'aux1'.
-      for(temp = fixo; temp; temp = temp->prox)
+      for(temp = aux2; temp; temp = temp->prox)
 	if( !(maiorDado > temp->dado) ) return 0;
 
       aux1 = aux1->prox;
-      aux2 = aux2->prox;
-    }while((aux1) && (aux2));
+    }while(aux1);
     
   } 
 
