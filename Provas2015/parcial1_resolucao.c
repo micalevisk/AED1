@@ -5,7 +5,7 @@
 //
 
 
-// 1: VER SE O NUMERO POSITIVO PASSADO EH PRIMO
+/// (1): VER SE O NUMERO POSITIVO PASSADO EH PRIMO.
 int ehPrimo(int numero){
   unsigned i = 2;
   int limite  = sqrt(numero);
@@ -14,12 +14,12 @@ int ehPrimo(int numero){
     if((numero % i)==0)
       return 0;
   }
-  return (numero > 1); // pois 0 e 1 não são primos
+  return (numero > 1); // Considerando 1 e 0 nao primos.
 }
 
 
 
-// 2: MEDIA DA ALTURA DOS VEGETARIANOS (tem 'S' no campo "veg")
+/// (2): MEDIA DA ALTURA DOS VEGETARIANOS (TEM 'S' NO CAMPO "veg").
 typedef struct{
   char nome[20];
   char veg;      
@@ -43,7 +43,7 @@ float alturaMediaDosVegetarianos(tipoPessoa v[], int nElementos){
 
 
 
-// 3: ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NAO ORDENADO
+/// (3): ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NAO ORDENADO.
 int maisSeRepete(int v[], int n){
   int numero, aux;
   int vezes, cont=0;
@@ -63,12 +63,12 @@ int maisSeRepete(int v[], int n){
   }
 
   if(n>0) return maisSeRepete;
-  else return -1; // 'erro' caso seja um vetor nulo;
+  else return -1; // 'erro' caso seja um vetor nulo.
 }
 
 
 
-// 4: PREENCHER O VETOR COM OS ELEMENTOS QUE DARAO O MAIOR PRODUTO INTERNO
+/// (4): PREENCHER O VETOR COM OS ELEMENTOS QUE DARAO O MAIOR PRODUTO INTERNO.
 void alterarVetor(int vet[], int mat[N][N]){
   int i, j, pInterno;
   int linha, aux=0;
@@ -88,4 +88,3 @@ void alterarVetor(int vet[], int mat[N][N]){
   for(j=0; j < N; j++)
     vet[j] = mat[linha][j];
 }
-
