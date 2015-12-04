@@ -59,13 +59,13 @@ int saoTodosMaiores(tipoLista *p1, tipoLista *p2){
 
 
 /// (2): VER SE A PRIMEIRA LISTA TEM APENAS VALORES MAIORES QUE A SEGUNDA LISTA.
-int saoTodosMaiores(tipoLista *A, tipoLista *B){
-  tipoNo *auxA = A->prim;
+int saoTodosMaiores(tipoLista A, tipoLista B){
+  tipoNo *auxA = A.prim;
   tipoNo *fixoB, *auxB; 
   int dadoA;
 
   if(!auxA) return 0;
-  fixoB = B->prim; // 'fixando' o primeiro elemento da segunda lista.
+  fixoB = B.prim; // 'fixando' o primeiro elemento da segunda lista.
 
   for(; auxA; auxA = auxA->prox){
     dadoA = auxA->dado;
@@ -79,17 +79,14 @@ int saoTodosMaiores(tipoLista *A, tipoLista *B){
 
 
 /// (3): VER SE DUAS LISTAS SAO IDENTICAS.
-int saoIdenticas(tipoLista *p1, tipoLista *p2){
-  tipoNo *aux1 = p1->prim;
-  tipoNo *aux2 = p2->prim;
-
-  while( (aux1) && (aux2)){
-    if(aux1->dado != aux2->dado) return 0;
-    aux1 = aux1->prox;
-    aux2 = aux2->prox;
+int saoIdenticas(tipoLista p1, tipoLista p2){
+  while((p1.prim) && (p2.prim)){
+    if(p1.prim->dado != p2.prim->dado) return 0;
+    p1.prim = p1.prim->prox;
+    p2.prim = p2.prim->prox;
   }
 
-  return (!(aux1) && !(aux2));
+  return (!(p1.prim) && !(p2.prim));
 }
 
 
