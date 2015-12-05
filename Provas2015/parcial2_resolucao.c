@@ -60,19 +60,15 @@ int saoTodosMaiores(tipoLista *p1, tipoLista *p2){
 
 /// (2): VER SE A PRIMEIRA LISTA TEM APENAS VALORES MAIORES QUE A SEGUNDA LISTA.
 int saoTodosMaiores(tipoLista A, tipoLista B){
-  tipoNo *auxA = A.prim;
-  tipoNo *fixoB, *auxB; 
-  int dadoA;
+  int menorA, maiorB; // Pois o menor de A deve ser maior que o maior de B.
 
-  if(!auxA) return 0;
-  fixoB = B.prim; // 'fixando' o primeiro elemento da segunda lista.
+  if((A.prim) && (B.prim)){
+    for(menorA=A.prim->dado; A.prim; A.prim = A.prim->prox) if(A.prim->dado < menorA) menorA = A.prim->dado;
+    for(maiorB=B.prim->dado; B.prim; B.prim = B.prim->prox) if(B.prim->dado > menorB) menorB = B.prim->dado;
 
-  for(; auxA; auxA = auxA->prox){
-    dadoA = auxA->dado;
-    for(auxB=fixoB; auxB; auxB = auxB->prox) // Percorrendo a segunda lista.
-      if( !(dadoA > auxB->dado) ) return 0;
+    return (menorA > maiorB);
   }
-
+  
   return 1;
 }
 
