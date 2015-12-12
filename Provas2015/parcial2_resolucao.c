@@ -18,57 +18,31 @@ typedef struct{
 
 
 /// (1): RETORNAR A QUANTIDADE DE ELEMENTOS QUE A LISTA POSSUI.
-int numeroDeElementosDaLista(tipoLista *p){
-  tipoNo *aux = p->prim;
+int numeroDeElementosDaLista(tipoLista p){
   int nElementos=0;
 
-  for(; aux; aux = aux->prox) nElementos++;
+  for(; p.prim; p.prim = p.prim->prox) nElementos++;
   return nElementos;
-}
-
-
-
-/// (2): VER SE UMA LISTA TEM APENAS ELEMENTOS COM 'dado's MAIORES QUE A OUTRA LISTA.
-int saoTodosMaiores(tipoLista *p1, tipoLista *p2){
-  tipoNo *aux1 = p1->prim;
-  tipoNo *aux2 = p2->prim;
-  tipoNo *temp;
-  int maiorDado;
-  
-  if((aux1) && (aux2)){
-
-    // 'aux1' define qual das listas devera ter todos os elementos maiores que a outra.
-    aux1 = (aux1->dado > aux2->dado) ? aux1 : aux2;
-    if(aux1 == aux2) aux2 = p1->prim;
-    
-    do{
-      maiorDado = aux1->dado;
-      
-      // 'temp' percorre a lista apontada por 'aux2' a cada verificacao de um elemento de 'aux1'.
-      for(temp = aux2; temp; temp = temp->prox)
-	if( !(maiorDado > temp->dado) ) return 0;
-
-      aux1 = aux1->prox;
-    }while(aux1);
-    
-  } 
-
-  return 1;
 }
 
 
 
 /// (2): VER SE A PRIMEIRA LISTA TEM APENAS VALORES MAIORES QUE A SEGUNDA LISTA.
 int saoTodosMaiores(tipoLista A, tipoLista B){
-  int menorA, maiorB; // Pois o menor de A deve ser maior que o maior de B.
+  tipoNo *auxB;
+  int dado;
 
-  if((A.prim) && (B.prim)){
-    for(menorA=A.prim->dado; A.prim; A.prim = A.prim->prox) if(A.prim->dado < menorA) menorA = A.prim->dado;
-    for(maiorB=B.prim->dado; B.prim; B.prim = B.prim->prox) if(B.prim->dado > menorB) menorB = B.prim->dado;
-
-    return (menorA > maiorB);
-  }
+  if(!B.prim) return 1;
   
+  while(A.prim){
+    dadoA = A.prim->dado;
+    
+    for(auxB = B.prim; aux; aux = aux->prox)
+      if( !(dadoA > auxB->dado ) ) return 0;
+
+    A.prim = A.prim->prox;
+  }
+
   return 1;
 }
 
@@ -88,4 +62,19 @@ int saoIdenticas(tipoLista p1, tipoLista p2){
 
 
 /// (4): CORRIGIR FUNCAO DE INSERCAO ORDENADA.
+void inserirOrdenado(tipoLista *L, int *d){
+  tipoNo *aux, *aux2 = NULL;
+  tipoNo *aux3 = L->prim;
 
+  while((aux3) && (*d > aux3->dado)){
+    aux2 = aux3;
+    aux3 = aux3->prox;
+  }
+
+  aux = (tipoNo*) malloc(sizeof(tipoNo));
+  aux->dado = *d;
+  aux->prox = aux3;
+  
+  if(aux2 != NULL) aux2->prox = aux;
+  else                L->prim = aux;
+}
