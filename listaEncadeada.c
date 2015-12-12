@@ -2,19 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <time.h>
-
-typedef struct{             // informacoes sobre o elemento
+typedef struct{    
   char nome[10];
   float preco;
 } tipoProduto;
 
-typedef  struct tipoNo{     // elemento da lista
+typedef  struct tipoNo{
   tipoProduto produto;
   struct tipoNo *prox;
 } tipoNo;
 
-typedef struct{             // guarda o endereco do primeiro da lista
+typedef struct{        
   tipoNo *prim;
 } tipoLista;
 
@@ -28,10 +26,10 @@ void criarLista(tipoLista *l) {
 void inserirNoInicioDaLista(tipoLista *l, tipoProduto elemento) { 
   tipoNo *novo;
   novo = (tipoNo*) malloc(sizeof(tipoNo));
-  if(novo){             // alocacao realizada.
+  if(novo){            
     novo->produto = elemento;
     novo->prox    = l->prim;
-    l->prim     = novo;
+    l->prim       = novo;
   }
 }
 
@@ -44,7 +42,7 @@ void inserirNoFinalDaLista(tipoLista *l, tipoProduto elemento) {
     novo->produto = elemento;
     novo->prox    = NULL;
 
-    if(!aux) l->prim = novo; // para lista vazia: o novo elemento sera o primeiro
+    if(!aux) l->prim = novo; // para lista vazia: o novo elemento sera o primeiro.
     else{
       while(aux->prox) aux = aux->prox;
       aux->prox = novo;
@@ -145,7 +143,6 @@ void removerElementoDaPosicao2(int k, tipoLista *l){
   }
 }
   
-  
 
 void concatenarListas(tipoLista *A, tipoLista *B){
   tipoNo *aux;
@@ -181,7 +178,7 @@ int inverterListaEncadeada(tipoLista *p){
 
     for(aux = temp; aux->prox != ultimo; aux = aux->prox);
     ultimo->prox = aux;
-    ultimo		 = aux;
+    ultimo	 = aux;
 
   }while(aux != temp);
 	
@@ -190,60 +187,84 @@ int inverterListaEncadeada(tipoLista *p){
   return 1;
 }
 
+// Retorna 0 se nao houve erros na gravacao dos dados.
+int gravarListaNumArquivo(tipoLista *p){
+  tipoNo* aux = p->prim;
+  FILE* arq;
+  char diretorio[100];
+
+  printf("<< Digite o caminho e nome do arquivo que armazenara os dados:\n");
+  gets(diretorio);
+
+  // Cria (se nao existir) e adiciona os dados.
+  if( !(arq = fopen(diretorio, "a+b")) ){
+    perror("\aAo criar/abrir o arquivo");
+    return 1; 
+  }
+
+  for(; aux; aux = aux->prox) fwrite(&(aux->produto), sizeof(tipoProduto), 1, arq);
+  
+  return 0;
+}
+
+
+// Retorna 0 se nao houve erro ao ler os dados do arquivo para a lista.
+int lerListaDeUmArquivo(tipoLista *p){
+  tipoNo* novo;
+  tipoProduto pdr_buffer;
+  FILE* arq;
+  char diretorio[100];
+
+  printf("<< Digite o caminho e nome do arquivo que armazena os dados da lista:\n");
+  gets(diretorio);
+
+  if( !(arq = fopen(diretorio, "rb")) ){
+    perror("\aAo abrir o arquivo");
+    return 1; 
+  }
+
+  p->prim = NULL;
+  
+  while(fread(&pdr_buffer, sizeof(tipoProduto), 1, arq)){
+    novo = (tipoNo*) malloc(sizeof(tipoNo));
+    novo->produto = pdr_buffer;
+    novo->prox    = p->prim;
+    p->prim       = novo;
+  }
+
+  fclose(arq);
+
+  return 0;
+}
 
 
 
 int main() {
-  srand(time(NULL));
 
   tipoLista lista;
   criarLista(&lista);
-
+  /*
   tipoProduto comida, limpeza, corpo;
   strcpy(comida.nome, "Banana");  comida.preco = 2.57;
   strcpy(limpeza.nome, "SabaoP"); limpeza.preco= 5.34;
   strcpy(corpo.nome, "Toalha");   corpo.preco  = 8.24;
-
+  
   printf("\n>> Inserindo e Exibindo: \n");
-  inserirNoFinalDaLista(&lista, comida);   // 6o
-  inserirNoFinalDaLista(&lista, limpeza);  // 5o
-  inserirNoInicioDaLista(&lista, corpo);   // 4o
-  inserirNoInicioDaLista(&lista, limpeza); // 3o
-  inserirNoInicioDaLista(&lista, corpo);   // 2o
-  inserirNoInicioDaLista(&lista, comida);  // 1o
+  inserirNoFinalDaLista(&lista, comida);   // 5o Banana
+  inserirNoFinalDaLista(&lista, limpeza);  // 6o SabaoP
+  inserirNoInicioDaLista(&lista, corpo);   // 4o Toalha
+  inserirNoInicioDaLista(&lista, limpeza); // 3o SabaoP
+  inserirNoInicioDaLista(&lista, corpo);   // 2o Toalha
+  inserirNoInicioDaLista(&lista, comida);  // 1o Banana
   mostrarElementosDaLista(&lista);
   printf("\n");
   
-  printf("\n>> Buscando e Retornando Resultado: \n");
-  tipoNo *elemento = buscarElementoNaLista(lista, "Toalha");
-  if(elemento){
-    printf(">> O produto foi encontrado!: \n");
-    printf(" NOME: %s -- PRECO: %.2f\n", elemento->produto.nome, (*elemento).produto.preco);
-  }
-  else
-    printf("\n>> O produto buscado nao foi encontrado! \n");
-
-  
-  printf("\n>> Removendo e Exibindo: \n");
-  (removerElementoDaLista(&lista, "Banana")) ? mostrarElementosDaLista(&lista) :
-    printf(">> Produto nao encontrado!");
-  printf("\n");
-
-  int pos;
-  /*
-    printf("\n>> Removendo da Posicao 'pos' e Exibindo: \n");
-    while(lista.prim){
-    printf(">> Posicao do elemento a remover: ");
-    scanf("%d",&pos);
-    removerElementoDaPosicao2(pos, &lista);
-
-    printf("\n>> Lista Atualizada: \n");
-    (lista.prim) ? mostrarElementosDaLista(&lista): printf("<vazia>\n");
-    }
-    printf("\n");
+  gravarListaNumArquivo(&lista);
   */
-	
-  inverterListaEncadeada(&lista);
+  
+  lerListaDeUmArquivo(&lista);
+  
   mostrarElementosDaLista(&lista);
-
+  printf("\n");
+  
 }
