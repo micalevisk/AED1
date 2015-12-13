@@ -203,6 +203,7 @@ int gravarListaNumArquivo(tipoLista *p){
   }
 
   for(; aux; aux = aux->prox) fwrite(&(aux->produto), sizeof(tipoProduto), 1, arq);
+  fclose(arq);
   
   return 0;
 }
