@@ -3,7 +3,7 @@ http://nicholasandre.com.br/sorting/
 http://algorithms.openmymind.net/
 */
 
-// ORDENAÇÃO POR SELEÇÃO: ; 
+// ORDENAÇÃO POR SELEÇÃO: [ESTÁVEL NESSE CASO]
 // melhor: O(n²)   | pior: O(n²)
 void selectionSort(int v[], int n){
   int i=0;
@@ -13,8 +13,7 @@ void selectionSort(int v[], int n){
     posMenor = i;
 
     for(j=i+1; j < n; j++)
-      if(v[j] < v[posMenor])
-	posMenor = j;
+      if(v[j] < v[posMenor]) posMenor = j;
 		
     if(i != posMenor){
       aux 	  = v[i];
@@ -40,7 +39,7 @@ int linearSearch(int chave, int v[], int n){
   // OTIMIZAÇÃO PARA VETOR NÃO ORDENADO:
   /*
   v[n] = chave;
-  for(; v[i] != chave; i++);
+  for(i=0; v[i] != chave; i++);
   if(i < n) return i;
   */
   
@@ -72,7 +71,7 @@ int binarySearch(int chave, int v[], int n){
 
 
 
-// ORDENAÇÃO POR INSERÇÃO: 
+// ORDENAÇÃO POR INSERÇÃO: [ESTÁVEL]
 // ideal= para vetores quase ordenados | pior= se o vetor estiver em ordem decrescente. 
 // melhor: O(n)   | pior: O(n²)
 void insertionSort(int v[], int n){
@@ -94,7 +93,7 @@ void insertionSort(int v[], int n){
 
 
 
-// ORDENAÇÃO POR QUICKSORT:
+// ORDENAÇÃO POR QUICKSORT: [INSTÁVEL]
 // melhor: O(n.log n)   | pior: O(n²)
 void particionar(int v[], int inicio, int fim){
   int pivot, aux, i, j;
@@ -126,7 +125,7 @@ void quickSort(int v[], int n){
 
 
 
-// ORDENAÇÃO POR INTERCALAÇÃO:
+// ORDENAÇÃO POR INTERCALAÇÃO: [ESTÁVEL]
 // melhor: O(n.log n)   | pior: O(n.log n)
 #include <stdlib.h>
 
@@ -181,6 +180,56 @@ void mergeSort(int v[], int n) {
   mergeSortInterno(v,vaux,0,n-1);
   free(vaux);
 }
+
+/* ----------------------------ARQUIVOS--------------------------------- */
+
+// Dado um arquivo binário com dados do tipo tipoDadosDeCadastro.
+typedef struct{
+  char nome[20];
+  char endereco[30];
+}tipoDadosDeCadastro;
+
+// BUSCA SEQUENCIAL EM ARQUIVO BINÁRIO:
+// melhor: O(1)   | pior: O(n)
+int linearSearch_file(FILE *fp, const char chave[], tipoDadosDeCadastro *result){
+  tipoDadosDeCadastro buffer;
+  rewind(fp);
+
+  while((fread(&buffer, sizeof(tipoDadosDeCadastro), 1, fp)==1 ))
+    if(!strcmp(chave, buffer.nome)){
+      *result = buffer;
+      return 1;      
+    }
+
+  return 0;  
+}
+    
+
+
+// BUSCA BINÁRIA EM ARQUIVO BINÁRIO:
+// melhor: O(1)   | pior: O(log n)
+int binarySearch_file(FILE* fp, const char chave[], tipoDadosDeCadastro *result){
+  tipoDadosDeCadastro aux;
+  int inicio = 0, meio, fim;
+  
+  rewind(fp);
+
+  while(inico <= fim){
+    meio = (inicio+fim)/2;
+
+    fseek(fp, meio * sizeof(tipoDadosDeCadastro), SEEK_SET); // Indo para o registro do meio.
+    fread(&aux, sizeof(tipoDadosDeCadastro), 1, fp);         // Lendo para 'aux' o registro do meio.
+
+    if(strcmp(chave, aux.nome) > 0)     inicio = meio+1;
+    else if(strcmp(chave, aux.nome < 0))fim    = meio-1;
+    else{
+      *result = aux;
+      return 1;      
+    }    
+  }
+  return 0;
+}
+
 
 
 
