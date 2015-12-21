@@ -8,7 +8,7 @@
 /// (1): VER SE O NUMERO POSITIVO PASSADO EH PRIMO.
 int ehPrimo(int numero){
   unsigned i = 2;
-  int limite  = sqrt(numero);
+  int limite = sqrt(numero);
 
   for(; i <= limite; i++){
     if((numero % i)==0)
@@ -43,48 +43,54 @@ float alturaMediaDosVegetarianos(tipoPessoa v[], int nElementos){
 
 
 
-/// (3): ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NAO ORDENADO.
+/// (3): ELEMENTO QUE MAIS SE REPETE NUM VETOR DE INTEIROS NAO ORDENADO. (admitindo tamanho mínimo = 1)
 int maisSeRepete(int v[], int n){
   int numero, aux;
   int vezes, cont=0;
   int i, j;
 
-  for(; i < n; i++){
+  aux = v[0]; // Definido que o primeiro é o que mais se "repete".
+ 
+  for(i=1; i < n; i++){
     numero = v[i];
     vezes  = 0;
     
     for(j = i+1; j < n; j++)
       if(v[j] == numero) vezes++;
 
-    if(vezes > cont){
+    if(vezes >= cont){
       cont = vezes;
       aux  = numero;
     }
   }
 
-  if(n>0) return maisSeRepete;
-  else return -1; // 'erro' caso seja um vetor nulo.
+  return aux;
 }
 
 
 
-/// (4): PREENCHER O VETOR COM OS ELEMENTOS QUE DARAO O MAIOR PRODUTO INTERNO.
+/// (4): PREENCHER O VETOR COM OS ELEMENTOS QUE DARAO O MAIOR PRODUTO INTERNO (VETOR ORIGINAL E LINHA DA MATRIZ).
 void alterarVetor(int vet[], int mat[N][N]){
   int i, j, pInterno;
   int linha, aux=0;
-  
-  for(i=0; i < N; i++){
-    pInterno=0;
-    
-    for(j=0; j < N; j++)
-      pInterno += vet[j] * mat[i][j];  
-          
-    if(pInterno > aux){
-      aux   = pInterno;
-      linha = i;
-    }
-  }
 
-  for(j=0; j < N; j++)
-    vet[j] = mat[linha][j];
+  if(N > 0){
+    for(j=0; j < N; j++) // Definindo um comparador.
+      aux += vet[j] * mat[0][j];
+  
+    for(i=1; i < N; i++){
+      pInterno=0;
+    
+      for(j=0; j < N; j++)
+	pInterno += vet[j] * mat[i][j];  
+          
+      if(pInterno > aux){
+	aux   = pInterno;
+	linha = i;
+      }
+    }
+
+    // Alterando os valores do vetor.
+    for(j=0; j < N; j++) vet[j] = mat[linha][j];
+  }
 }
