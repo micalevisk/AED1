@@ -105,13 +105,14 @@ int inverterListaCircular(tipoListaCircular *a){
 
     for(aux = temp; aux->prox != ultimo; aux = aux->prox);
     ultimo->prox = aux;
-    ultimo		 = aux;
+    ultimo	 = aux;
 
-  }while(aux != temp); // aux == temp == ultimo (ao sair do loop)
+  }while(aux != temp); // aux = temp = ultimo (ao sair do loop)
 	
   ultimo->prox = a->atual;	
   return 1;
 }
+
 
 
 
@@ -151,7 +152,5 @@ int main(){
   inverterListaCircular(&lista);
 
   mostrarElementosDaListaCircular(&lista);
- 
-
 
 }

@@ -61,7 +61,7 @@ int binarySearch(int chave, int v[], int n){
 
     if(v[meio] < chave) inicio = meio+1;
     
-    else if(v[meio] > chave) fim = meio -1;
+    else if(v[meio] > chave) fim = meio-1;
     
     else return meio;
   }
@@ -210,10 +210,12 @@ int linearSearch_file(FILE *fp, const char chave[], tipoDadosDeCadastro *result)
 // melhor: O(1)   | pior: O(log n)
 int binarySearch_file(FILE* fp, const char chave[], tipoDadosDeCadastro *result){
   tipoDadosDeCadastro aux;
-  int inicio = 0, meio, fim;
+  int inicio = 0, meio, fim=-1;
   
   rewind(fp);
+  while(fread(&aux, sizeof(tipoDadosDeCadastro), 1, fp)==1) fim++;
 
+  rewind(fp);
   while(inico <= fim){
     meio = (inicio+fim)/2;
 
