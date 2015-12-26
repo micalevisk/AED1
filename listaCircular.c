@@ -58,6 +58,37 @@ tipoDado removerDaListaCircular(tipoListaCircular *a){ // remove o sucessor de '
 }
 
 
+int removerElementoDaListaCircular(tipoListaCircular *a, int chave){ // Buscar pelo 'valor' e retorna verdadeiro se for removido.
+  tipoNo *aux = a->atual; // Elemento que sera removido.
+  tipoNo *temp= NULL;     // Elemento anterior ao que sera removido.
+  tipoNo *ant = aux;
+
+  if(aux){
+
+    do{
+      if(aux->dado.valor == chave) break;
+      temp = aux; aux = aux->prox;
+      if(aux == ant) return 0;
+    }while(aux != ant);
+    
+    if(!temp){ // Caso seja a remocao do "primeiro" no.
+      temp = aux->prox;
+      if(aux == temp) // Se a lista tiver apenas um no.
+	a->atual = NULL;
+      else a->atual = temp;
+      
+      for(ant=temp; ant->prox != aux; ant = ant->prox);
+      ant->prox = temp;
+    }
+    else temp->prox = aux->prox;
+
+    free(aux);
+    return 1;
+  }
+  return 0;
+}
+
+
 void mostrarElementosDaListaCircular(tipoListaCircular *a){
   tipoNo *aux = a->atual;
   tipoNo *temp= aux;
@@ -147,10 +178,12 @@ int main(){
       }
   */
 
-		
+  /*
   printf("\n>> Lista invertida: \n");
   inverterListaCircular(&lista);
-
+  */
+  printf("\n>> Apos a remocao: \n");
+  removerElementoDaListaCircular(&lista, 3);
   mostrarElementosDaListaCircular(&lista);
 
 }
