@@ -126,7 +126,7 @@ int inverterListaCircular(tipoListaCircular *a){
   tipoNo *temp= aux;
   tipoNo *ultimo;
 
-  if(!(aux) || !(aux->prox)) return 0;
+  if(!(aux) || (aux == aux->prox)) return 0; // Lista vazia ou com apenas 1 no.
 
   for(ultimo=aux; ultimo->prox != temp; ultimo = ultimo->prox);
 	
