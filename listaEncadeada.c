@@ -142,6 +142,23 @@ void removerElementoDaPosicao2(int k, tipoLista *l){
 
   }
 }
+
+
+void removerElementoDaPosicao3(int k, tipoLista *l){
+  tipoNo *aux = l->prim; // anterior ao que será removido.
+  tipoNo *proximo;       // o que será removido.
+
+  for(; (aux) && (k > 2); aux = aux->prox) k--;
+
+  if((aux) && (k>0) && (k<3)){
+    proximo = (k == 1) ? aux : aux->prox;
+
+    if(k == 1)         l->prim = aux->prox;
+    else if(proximo) aux->prox = proximo->prox;
+
+    free(proximo);    
+  }  
+}
   
 
 void concatenarListas(tipoLista *A, tipoLista *B){
