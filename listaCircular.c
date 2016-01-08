@@ -102,19 +102,20 @@ void mostrarElementosDaListaCircular(tipoListaCircular *a){
 }
 
 
+// retorna 1 se a o 'atual' foi atualizado.
 int atualizarAtual(tipoListaCircular *a, int valor){
   tipoNo *aux = a->atual;
-  tipoNo *temp= aux;
+  tipoNo *temp= aux; // Fixando o 'atual' original.
 
   if(aux){
-    aux = aux->prox;
-    do{
-      if((aux->dado.valor) == valor){
+    for(aux = aux->prox; aux != temp; aux = aux->prox){ // Admitindo que o novo 'atual' nao possui valor igual ao 'atual' original.
+
+      if((aux->dado.valor) == valor){ // Novo 'atual' foi encontrado.
 	a->atual = aux;
 	return 1;
       }
-      aux = aux->prox;
-    }while(aux != temp);
+     
+    }
   }
 
   return 0;
@@ -123,7 +124,7 @@ int atualizarAtual(tipoListaCircular *a, int valor){
 
 int inverterListaCircular(tipoListaCircular *a){
   tipoNo *aux = a->atual;
-  tipoNo *temp= aux;
+  tipoNo *temp= aux; // Fixando o 'atual' inicial.
   tipoNo *ultimo;
 
   if(!(aux) || (aux == aux->prox)) return 0; // Lista vazia ou com apenas 1 no.

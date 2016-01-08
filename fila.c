@@ -26,12 +26,12 @@ void criarFila(tipoFila *p){
 }
 
 
-void inserirNaFila(tipoFila *p, tipoDado elemento){ // insere sempre no final
+void inserirNaFila(tipoFila *p, tipoDado elemento){ // insere sempre no final.
   tipoNo *aux = (tipoNo*) malloc(sizeof(tipoNo));
   aux->dado = elemento;
   aux->prox = NULL;
   
-  if(!p->prim) p->prim = aux; // para fila vazia
+  if(!p->prim) p->prim = aux; // para fila vazia.
   else    p->ult->prox = aux;
 
   p->ult = aux;
@@ -43,11 +43,11 @@ tipoNo* haElementosNaFila(tipoFila *p){
 }
 
 
-tipoDado removerDaFila(tipoFila *p){ // remove sempre o que esta na vez (primeiro)[fila nao vazia]
+tipoDado removerDaFila(tipoFila *p){ // remove sempre o que esta na vez (primeiro)[fila nao vazia].
   tipoNo *aux   = p->prim;
   tipoDado temp = aux->dado;
 
-  if(!aux->prox) p->ult = NULL; // verifica se a fila tinha apenas 1 elemento
+  if(!aux->prox) p->ult = NULL; // verifica se a fila tem apenas 1 elemento.
   p->prim = aux->prox;
   free(aux);
 
@@ -65,7 +65,7 @@ void mostrarElementosDaFila(tipoFila *p){
 }
 
 
-tipoNo* buscarElementoNaFila(tipoFila *p, int elemento){  //buscar por 'valor'
+tipoNo* buscarElementoNaFila(tipoFila *p, int elemento){  //buscar por 'valor'.
   tipoNo *aux = p->prim;
   while(aux){
     if(aux->dado.valor == elemento) return aux;

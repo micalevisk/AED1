@@ -24,30 +24,26 @@ void criarLista(tipoLista *l) {
 
 
 void inserirNoInicioDaLista(tipoLista *l, tipoProduto elemento) { 
-  tipoNo *novo;
-  novo = (tipoNo*) malloc(sizeof(tipoNo));
-  if(novo){            
-    novo->produto = elemento;
-    novo->prox    = l->prim;
-    l->prim       = novo;
-  }
+  tipoNo *novo = (tipoNo*) malloc(sizeof(tipoNo));
+  
+  novo->produto = elemento;
+  novo->prox    = l->prim;
+  l->prim       = novo;
 }
 
 
 void inserirNoFinalDaLista(tipoLista *l, tipoProduto elemento) {
   tipoNo *novo, *aux = l->prim;
-  novo = (tipoNo*) malloc(sizeof(tipoNo));
   
-  if(novo){
-    novo->produto = elemento;
-    novo->prox    = NULL;
+  novo = (tipoNo*) malloc(sizeof(tipoNo));
+  novo->produto = elemento;
+  novo->prox    = NULL;
 
-    if(!aux) l->prim = novo; // para lista vazia: o novo elemento sera o primeiro.
-    else{
-      while(aux->prox) aux = aux->prox;
-      aux->prox = novo;
-    }    
-  }
+  if(!aux) l->prim = novo; // para lista vazia: o novo elemento sera o primeiro.
+  else{
+    while(aux->prox) aux = aux->prox;
+    aux->prox = novo;
+  }     
 }
 
 
@@ -60,14 +56,14 @@ void mostrarElementosDaLista(tipoLista *L) {
 }
 
 
-tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){ // (nao otimizado)
+tipoNo* buscarElementoNaLista(tipoLista l, char nomeElemento[]){
   while(l.prim){
     if( !strcmp(l.prim->produto.nome, nomeElemento)  )
       return l.prim;
     
     l.prim = l.prim->prox;
   }  
-  return NULL; // elemento NAO encontrado.
+  return NULL; // elemento NAO encontrado ou lista vazia.
 }
 
 
@@ -89,9 +85,9 @@ int removerElementoDaLista(tipoLista *L, char produto[]){
 }
 
 
-void removerElementoDaPosicao(int k, tipoLista *l){
+void removerElementoDaPosicao(int k, tipoLista *l){   // atual 'anda' ate ser o elemento que sera removido .
   tipoNo *anterior = NULL, *atual = l->prim;
-  // atual 'anda' ate ser o elemento que sera removido 
+
   for(; (k>0) && (atual); k--){
     if(k != 1){
       anterior = atual;
@@ -145,8 +141,8 @@ void removerElementoDaPosicao2(int k, tipoLista *l){
 
 
 void removerElementoDaPosicao3(int k, tipoLista *l){
-  tipoNo *aux = l->prim; // anterior ao que será removido.
-  tipoNo *proximo;       // o que será removido.
+  tipoNo *aux = l->prim; // anterior ao que sera removido.
+  tipoNo *proximo;       // o que sera removido.
 
   for(; (aux) && (k > 2); aux = aux->prox) k--;
 
@@ -183,11 +179,11 @@ void apagarLista(tipoLista *l){
 
 int inverterListaEncadeada(tipoLista *p){
   tipoNo *aux  = p->prim;
-  tipoNo *ultimo;
-  tipoNo *temp = aux;
-	
-  for(ultimo = aux; ultimo->prox; ultimo = ultimo->prox); // 'ultimo' é o último nó.
+  tipoNo *ultimo;     // ultimo  no.
+  tipoNo *temp = aux; // fixando o primeiro.
+  
   if(!(aux) || !(aux->prox)) return 0;
+  for(ultimo = aux; ultimo->prox; ultimo = ultimo->prox); 
 	
   p->prim = ultimo;
 
@@ -210,10 +206,12 @@ int gravarListaNumArquivo(tipoLista *p){
   FILE* arq;
   char diretorio[100];
 
+  if(!aux) return 0;
+
   printf("<< Digite o caminho e nome do arquivo que armazenara os dados:\n");
   gets(diretorio);
 
-  // Cria (se nao existir) e adiciona os dados.
+  // Cria (se nao existir) e adiciona os dados:
   if( !(arq = fopen(diretorio, "a+b")) ){
     perror("\aAo criar/abrir o arquivo");
     return 1; 
@@ -244,7 +242,7 @@ int lerListaDeUmArquivo(tipoLista *p){
   p->prim = NULL;
   
   while(fread(&pdr_buffer, sizeof(tipoProduto), 1, arq)){
-    novo = (tipoNo*) malloc(sizeof(tipoNo));
+    novo = (tipoNo*) malloc(sizeof(tipoNo)); // Criando um novo no e inserindo no inicio da lista:
     novo->produto = pdr_buffer;
     novo->prox    = p->prim;
     p->prim       = novo;
