@@ -1,6 +1,6 @@
 //
 //  final_resolucao.c
-//  Created by Micael Levi on 15/12/21.
+//  Created by Micael Levi on 12/21/15.
 //  Copyright (c) 2015 Micael Levi L. Cavalcante. All rights reserved
 //
 

@@ -1,6 +1,6 @@
 //
 //  parcial1_resolucao.c
-//  Created by Micael Levi on 15/10/21.
+//  Created by Micael Levi on 10/21/15.
 //  Copyright (c) 2015 Micael Levi L. Cavalcante. All rights reserved
 //
 
