@@ -61,6 +61,7 @@ int textoVerdadeiro(char texto[]){
     if(texto[i] == 'U'){
       if( (texto[i+1] == 'F') && (texto[i+2] == 'A') && (texto[i+3] == 'M') )
 	return 1;
+      i+=3;
     }
   }
   return 0;
